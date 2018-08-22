@@ -15,8 +15,18 @@
         android:theme="@style/AppTheme">
 
         <!-- 主页面，程序入口 -->
+        <!--<activity-->
+            <!--android:name=".module.HomeActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
         <activity
-            android:name=".module.HomeActivity"
+            android:name="com.sun.myexamples.StudyActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
