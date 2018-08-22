@@ -3,8 +3,8 @@
 
 
     <!--behavior-->
-    <string name="simple_view_behavior">com.nanchen.rxjava2examples.ui.SimpleViewBehavior</string>
-    <string name="translate_up_down_behavior">com.nanchen.rxjava2examples.ui.TranslateUpDownBehavior</string>
+    <string name="simple_view_behavior">com.sun.rxjava2examples.ui.SimpleViewBehavior</string>
+    <string name="translate_up_down_behavior">com.sun.rxjava2examples.ui.TranslateUpDownBehavior</string>
 
     <string name="home">主页</string>
 

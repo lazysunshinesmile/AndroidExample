@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nanchen.rxjava2examples.module.HomeActivity">
+    tools:context="com.sun.rxjava2examples.module.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/home_appbar"
