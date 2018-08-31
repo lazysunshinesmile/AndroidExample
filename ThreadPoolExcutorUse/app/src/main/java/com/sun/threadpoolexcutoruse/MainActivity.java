@@ -1,8 +1,7 @@
 package com.sun.threadpoolexcutoruse;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.concurrent.Executors;

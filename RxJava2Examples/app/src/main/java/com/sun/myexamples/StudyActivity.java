@@ -39,14 +39,14 @@ import io.reactivex.schedulers.Timed;
 public class StudyActivity extends AppCompatActivity {
     private String TAG = "StudyActivity";
 
-    private Observable<String> mObjectObservable;
-    private Observable<Integer> mObjectObservable2;
+    private Observable<Object> mObjectObservable;
+    private Observable<Object> mObjectObservable2;
     private Flowable<String> mFlowable;
     private Disposable mDisposable;
 
     private TextView textView;
     private Button button;
-    private ObservableEmitter<String> mObservableEmitter;
+    private ObservableEmitter<Object> mObservableEmitter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class StudyActivity extends AppCompatActivity {
         });
 
         //初始化被观察者
-        initObservable();
+//        initObservable();
 //        订阅，绑定被观察者和观察者
 //        subscribeOberver();
 
@@ -88,11 +88,13 @@ public class StudyActivity extends AppCompatActivity {
         debounceUse();
     }
 
+    @SuppressLint("CheckResult")
     private void debounceUse() {
         final String TAG = "debounceUse";
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
-            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                mObservableEmitter = emitter;
                 emitter.onNext(1);
                 Thread.sleep(300);
                 emitter.onNext(2);
@@ -104,14 +106,13 @@ public class StudyActivity extends AppCompatActivity {
 
             }
         }).debounce(299, TimeUnit.MILLISECONDS)
-        .subscribe(new Consumer<Integer>() {
+        .subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Integer integer) throws Exception {
+            public void accept(Object integer) throws Exception {
                 Log.d(TAG, "accept: " + integer);
             }
         });
 
-        mObjectObservable.window()
     }
 
 
@@ -160,9 +161,9 @@ public class StudyActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     private void timeIntervalUse() {
         final String TAG = "timeInterval";
-        mObjectObservable.timeInterval().subscribe(new Consumer<Timed<String>>() {
+        mObjectObservable.timeInterval().subscribe(new Consumer<Timed<Object>>() {
             @Override
-            public void accept(Timed<String> stringTimed) throws Exception {
+            public void accept(Timed<Object> stringTimed) throws Exception {
                 Log.d(TAG, "accept: " + stringTimed);
             }
         });
@@ -171,17 +172,17 @@ public class StudyActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     private void zipUse() {
         final String TAG = "zipUse";
-        Observable.zip(mObjectObservable, mObjectObservable2, new BiFunction<String, Integer, Map<String, Object>>() {
+        Observable.zip(mObjectObservable, mObjectObservable2, new BiFunction<Object, Object, Map<Object, Object>>() {
             @Override
-            public Map<String, Object> apply(String s, Integer integer) throws Exception {
-                Map<String, Object> map = new HashMap<>();
+            public Map<Object, Object> apply(Object s, Object integer) throws Exception {
+                Map<Object, Object> map = new HashMap<>();
                 map.put("name", s);
                 map.put("age", integer);
                 return map;
             }
-        }).subscribe(new Consumer<Map<String, Object>>() {
+        }).subscribe(new Consumer<Map<Object, Object>>() {
             @Override
-            public void accept(Map<String, Object> stringObjectMap) throws Exception {
+            public void accept(Map<Object, Object> stringObjectMap) throws Exception {
                 Log.d(TAG, "accept: name:" + stringObjectMap.get("name"));
                 Log.d(TAG, "accept: age:" + stringObjectMap.get("age"));
             }
@@ -346,9 +347,10 @@ public class StudyActivity extends AppCompatActivity {
     }
 
     private void initObservable() {
-        mObjectObservable = Observable.create(new ObservableOnSubscribe<String>() {
+        mObjectObservable = Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
+            public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                Log.d(TAG, "subscribe: mObservableEmiter初始化");
                 mObservableEmitter = e;
 
                 //ObservableCreate的静态内部类，CreateEmitter<T>:
@@ -414,9 +416,9 @@ public class StudyActivity extends AppCompatActivity {
 
             }
         });
-        mObjectObservable2 = Observable.create(new ObservableOnSubscribe<Integer>() {
+        mObjectObservable2 = Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
-            public void subscribe(ObservableEmitter<Integer> observableEmitter) throws Exception {
+            public void subscribe(ObservableEmitter<Object> observableEmitter) throws Exception {
                 observableEmitter.onNext(23);
                 observableEmitter.onNext(23);
                 observableEmitter.onNext(23);
