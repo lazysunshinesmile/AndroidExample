@@ -2,13 +2,7 @@ package com.example.sunxiang.oneframe.view;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
@@ -37,15 +31,17 @@ public class NetLoadDialogImpl implements INetLoadDialog {
 
   private static NetLoadDialogImpl instanse = null;
 
+  private final String TAG = getClass().getSimpleName();
+
   private NetLoadDialogImpl(Activity activity) {
     this.activity = new WeakReference<>(activity);
     this.dialogMap = new LruCache<>(CACHE_NUM);
   }
 
   public static void initInstance(Activity activity) {
-    if( instanse == null ) {
+    if (instanse == null) {
       synchronized (NetLoadDialogImpl.class) {
-        if(instanse == null) {
+        if (instanse == null) {
           instanse = new NetLoadDialogImpl(activity);
         }
       }
@@ -57,25 +53,37 @@ public class NetLoadDialogImpl implements INetLoadDialog {
   }
 
 
+  @Override
+  public void show(String dialogFlag, String dialogMsg, boolean cancelable) {
 
-  @Override public void show(String dialogFlag, String dialogMsg, boolean cancelable) {
-    tryRemoveDialog(dialogFlag);
+
     if (!activity.get().isFinishing()) {
-      Dialog dialog = createDialog(activity.get());
-      dialog.setCanceledOnTouchOutside(false);
-      dialog.setCancelable(cancelable);
+      //activity 没有结束，需要显示
+      Dialog dialog = dialogMap.get(dialogFlag);
+      //dialog 存在没有显示
+      //dialog 不存在，
+      //dialog 存在并显示了，不做处理
 
-      if(!TextUtils.isEmpty(dialogMsg)) {
-        setMessage(dialog, dialogMsg);
+      if (dialog != null && !dialog.isShowing()) {
+        dialog.show();
+        return;
+      } else if (dialog == null) {
+        dialog = createDialog(activity.get());
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(cancelable);
+
+        if (!TextUtils.isEmpty(dialogMsg)) {
+          setMessage(dialog, dialogMsg);
+        }
+        dialogMap.put(dialogFlag, dialog);
+        dialog.show();
       }
-
-      dialogMap.put(dialogFlag, dialog);
-
-      dialog.show();
     }
+    //activity 结束了，不做显示
   }
 
-  @Override public void dismiss(String dialogFlag) {
+  @Override
+  public void dismiss(String dialogFlag) {
     tryRemoveDialog(dialogFlag);
   }
 
@@ -85,6 +93,8 @@ public class NetLoadDialogImpl implements INetLoadDialog {
    * @param dialogFlag dialogMap's key
    */
   private void tryRemoveDialog(String dialogFlag) {
+    Log.d(TAG, "tryRemoveDialog: size:" + dialogMap.size());
+
     if (dialogMap != null) {
       Dialog previousDialog = dialogMap.remove(dialogFlag);
 
@@ -92,53 +102,23 @@ public class NetLoadDialogImpl implements INetLoadDialog {
         previousDialog.setOnDismissListener(null);
         previousDialog.setOnCancelListener(null);
         if (previousDialog.isShowing()) {
-          //get the Context object that was used to great the dialog
-          Context context = ((ContextWrapper) previousDialog.getContext()).getBaseContext();
-          // if the Context used here was an activity AND it hasn't been finished or destroyed
-          // then dismiss it
-          if (context instanceof Activity) {
-
-            // Api >=17
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-              if (!((Activity) context).isFinishing() && !((Activity) context).isDestroyed()) {
-                dismissWithExceptionHandling(previousDialog);
-              }
-            } else {
-
-              // Api < 17. Unfortunately cannot check for isDestroyed()
-              if (!((Activity) context).isFinishing()) {
-                dismissWithExceptionHandling(previousDialog);
-              }
-            }
-          } else {
-            // if the Context used wasn't an Activity, then dismiss it too
-            dismissWithExceptionHandling(previousDialog);
-          }
+          previousDialog.dismiss();
         }
-        previousDialog = null;
       }
+
+      Log.d(TAG, "tryRemoveDialog: size:" + dialogMap.size());
     }
   }
 
-  private void dismissWithExceptionHandling(Dialog dialog) {
-    try {
-      dialog.dismiss();
-    } catch (final IllegalArgumentException e) {
-      // Do nothing.
-    } catch (final Exception e) {
-      // Do nothing.
-    } finally {
-      dialog = null;
-    }
-  }
-
-  @Override public void cleanup() {
+  @Override
+  public void cleanup() {
     // firstly cleanup all the dialogs (remove OnBackPressedListener from dialog)
     // firstly cleanup all the dialogs
     // then release the activity reference
-
+    Log.d(TAG, "cleanup: ");
     if (dialogMap != null) {
-      for (Map.Entry<String, Dialog> entry : dialogMap.entrySet()) {
+      Map<String, Dialog> map = dialogMap.snapshot();
+      for (Map.Entry<String, Dialog> entry : map.entrySet()) {
         Dialog dialog = entry.getValue();
         if (dialog != null) {
           dialog.setOnDismissListener(null);
@@ -150,7 +130,7 @@ public class NetLoadDialogImpl implements INetLoadDialog {
       }
     }
 
-    //dialogMap = null;
+    dialogMap = null;
     //activity = null;
   }
 

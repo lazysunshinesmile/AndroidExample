@@ -23,13 +23,13 @@ public abstract class SuperPresenter<V extends SuperView, M extends SuperModel> 
   public void setSuperView(V superView) {
     this.superView = superView;
   }
-  public abstract M setSuperModel();
+  protected abstract M setSuperModel();
 
-  public V getSuperView() {
+  protected V getView() {
     return superView;
   }
 
-  protected M getSuperModel() {
+  protected M getModel() {
     if( superModel == null ) {
       throw new IllegalStateException("Please first implement SuperPresenter#setSuperModel method");
     }

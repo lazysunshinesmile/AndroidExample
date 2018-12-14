@@ -1,12 +1,13 @@
 package com.example.sunxiang.oneframe.view;
 
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.sunxiang.oneframe.application.OneFrameApplication;
 import com.example.sunxiang.oneframe.presenter.SuperPresenter;
+
 
 /**
  * Created by sunxiang on 2018/12/12.
@@ -15,10 +16,20 @@ public abstract class SuperActivity<T extends SuperPresenter>
     extends AppCompatActivity implements SuperView {
 
   private T presenter;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(onCreateViewID());
+
+    initSuper();
+
+    initData();
+    initUI();
+    initListener();
+  }
+
+  private void initSuper() {
     NetLoadDialogImpl.initInstance(this);
     if (this.presenter == null && setPresenter() != null) {
       this.presenter = setPresenter();
@@ -26,10 +37,7 @@ public abstract class SuperActivity<T extends SuperPresenter>
       throw new IllegalStateException("Please first implement SuperActivity#setPresenter method");
     }
     presenter.setSuperView(this);
-    initData();
-    initUI();
-    initListener();
-
+    ((OneFrameApplication)getApplication()).addActivity(this);
   }
 
   protected abstract T setPresenter();
@@ -63,6 +71,13 @@ public abstract class SuperActivity<T extends SuperPresenter>
       public void run() {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
       }
-    });  }
+    });
+  }
 
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    ((OneFrameApplication)getApplication()).removeActivity(this);
+  }
 }

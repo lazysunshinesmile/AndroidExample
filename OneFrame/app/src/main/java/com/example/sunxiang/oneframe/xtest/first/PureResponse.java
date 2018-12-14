@@ -1,4 +1,4 @@
-package com.example.sunxiang.oneframe;
+package com.example.sunxiang.oneframe.xtest.first;
 
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;

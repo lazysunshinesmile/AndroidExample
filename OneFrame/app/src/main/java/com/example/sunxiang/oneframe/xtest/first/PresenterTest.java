@@ -1,4 +1,4 @@
-package com.example.sunxiang.oneframe;
+package com.example.sunxiang.oneframe.xtest.first;
 
 import android.util.Log;
 
@@ -15,9 +15,9 @@ public class PresenterTest extends SuperPresenter<MainActivity, ModelTest> {
 
   //同步获取
   public void requestBaidu() {
-    String str = getSuperModel().querySomething();
+    String str = getModel().querySomething();
 
-    getSuperView().requestBaiduSuccess();
+    getView().requestBaiduSuccess();
   }
 
   //异步获取
@@ -25,24 +25,24 @@ public class PresenterTest extends SuperPresenter<MainActivity, ModelTest> {
     new Thread(new Runnable() {
       @Override
       public void run() {
-        getSuperView().requestBaiduSuccess();
+        getView().requestBaiduSuccess();
       }
     }).start();
   }
 
   public void getMsgList(int pageNo, String msgType) {
-    getSuperModel().querySomething(pageNo, msgType,  new NetCallbackBodyIsJsonImpl() {
+    getModel().querySomething(pageNo, msgType,  new NetCallbackBodyIsJsonImpl() {
       @Override
       public void onResponse(JSONObject data) throws JSONException {
 
         Log.d(TAG, "onResponse: " + data.getJSONObject("data").get("hasUnreadNotice"));
-        getSuperView().requestBaiduSuccess();
+        getView().requestBaiduSuccess();
       }
 
       @Override
       public void onFailure(Throwable t) {
         Log.d(TAG, "onFailure: " + t.getMessage());
-        getSuperView().requestBaiduFail();
+        getView().requestBaiduFail();
       }
     });
   }

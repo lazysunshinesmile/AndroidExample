@@ -1,20 +1,11 @@
-package com.example.sunxiang.oneframe;
-
-import android.util.Log;
+package com.example.sunxiang.oneframe.xtest.first;
 
 import com.example.sunxiang.oneframe.model.SuperModel;
 import com.example.sunxiang.oneframe.net.INetCallback;
-import com.example.sunxiang.oneframe.net.NetCallbackImpl;
 import com.google.gson.JsonObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**

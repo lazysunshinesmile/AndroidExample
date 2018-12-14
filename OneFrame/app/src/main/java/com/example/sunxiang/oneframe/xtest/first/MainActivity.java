@@ -1,12 +1,13 @@
-package com.example.sunxiang.oneframe;
+package com.example.sunxiang.oneframe.xtest.first;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.sunxiang.oneframe.R;
 import com.example.sunxiang.oneframe.view.SuperActivity;
+import com.example.sunxiang.oneframe.xtest.second.SecondActivity;
 
-public class MainActivity extends SuperActivity<PresenterTest> implements MainView{
+public class MainActivity extends SuperActivity<PresenterTest> implements MainView {
 
   private final String TAG = "MainActivity";
   //view
@@ -28,8 +29,8 @@ public class MainActivity extends SuperActivity<PresenterTest> implements MainVi
 //        异步
 //        getPresenter().syncRequestBaidu();
         //真正的网络请求
-        getPresenter().getMsgList(1, "activity");
-
+//        getPresenter().getMsgList(1, "activity");
+        startActivity(SecondActivity.callIntent(v.getContext()));
       }
     });
   }

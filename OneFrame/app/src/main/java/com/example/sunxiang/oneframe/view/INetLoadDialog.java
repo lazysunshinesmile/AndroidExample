@@ -9,8 +9,4 @@ public interface INetLoadDialog {
   void dismiss(String dialogFlag);
 
   void cleanup();
-
-  interface OnBackPressedListener {
-    void onBackPressed();
-  }
 }
