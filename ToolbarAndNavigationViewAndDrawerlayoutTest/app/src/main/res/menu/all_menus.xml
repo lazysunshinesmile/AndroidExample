@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/one">
+        <item android:title="Group1-Item数据">
+            <menu>
+                <item android:title="Group1-Menu-Item数据1" />
+                <item android:title="Group1-Menu-Item数据3" />
+            </menu>
+        </item>
+    </group>
+
+    <item
+        android:id="@+id/first_id"
+        app:showAsAction="ifRoom|withText"
+        android:title="first"/>
+
+    <item
+        android:title="second"
+        android:icon="@mipmap/ic_launcher_round"
+        app:showAsAction="ifRoom"
+        android:id="@+id/second_id"
+        />
+    <item
+        android:title="third"
+        android:icon="@mipmap/ic_launcher_round"
+        app:showAsAction="never"
+        android:id="@+id/third_id"
+        />
+</menu>
