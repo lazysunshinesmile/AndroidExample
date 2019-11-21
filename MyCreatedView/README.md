@@ -72,7 +72,7 @@ onMeasure(int widthMeasureSpec, int heightMeasureSpec)
    - 原本android的属性直接写android:id
    - 自定义的view根据上面你自己定义的命名空间
 
-   ![1574323910976](/home/Sun/.config/Typora/typora-user-images/1574323910976.png)
+   ![1574323910976](https://github.com/lazysunshinesmile/AndroidExample/blob/master/MyCreatedView/1574323910976.png)
 
 3. 在java文件中使用：
 
