@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!--下面的app:selectedColor,前面app的命名根据上面的命名空间而来 -->
+    <com.grandstream.myapplication.BaseTabView
+        android:id="@+id/basetabview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:textColor="#ff8439"
+        android:textSize="40sp"
+        app:changeTextSizeWithAnim="true"
+        app:dividerColor="#28a1ff"
+        app:dividerHeight="3dp"
+        app:selectedColor="#000034"
+        app:tabPaddingBottom="32dp"
+        app:tabPaddingTob="32dp"
+        app:textSizeAfterClick="54sp" />
+    <TextView
+        android:id="@+id/text"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

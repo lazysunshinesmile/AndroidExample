@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <color name="color_label">#626262</color>
+    <color name="color_input">#626262</color>
+    <color name="color_title_background">#F4F5F5</color>
+    <color name="color_divider">#e2e4e7</color>
+    <color name="status_barColor">#E6000000</color>
+    <color name="warn_text">#d73a29</color>
+</resources>

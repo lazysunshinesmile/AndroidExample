@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseTabView">
+        <attr name="android:textSize"/>
+        <attr name="android:orientation"/>
+        <attr name="android:textColor"/>
+        <attr name="selectedColor" format="color"/>
+        <attr name="dividerColor" format="color"/>
+        <attr name="dividerHeight" format="dimension"/>
+        <attr name="dividerWidth" format="dimension" />
+        <attr name="textSizeAfterClick" format="dimension" />\
+        <attr name="tabPaddingBottom" format="dimension" />
+        <attr name="tabPaddingTob" format="dimension" />
+        <attr name="tabPaddingLeft" format="dimension" />
+        <attr name="tabPaddingRight" format="dimension" />
+        <attr name="changeTextSizeWithAnim" format="boolean" />
+
+    </declare-styleable>
+
+
+</resources>
