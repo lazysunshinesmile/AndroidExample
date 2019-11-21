@@ -78,7 +78,7 @@ onMeasure(int widthMeasureSpec, int heightMeasureSpec)
 
    要注意你在attrs.xml中定义的名称：
 
-   ![1574324109544](/home/Sun/.config/Typora/typora-user-images/1574324109544.png)
+   ![1574324109544](https://github.com/lazysunshinesmile/AndroidExample/blob/master/MyCreatedView/1574324109544.png)
 
    然后在java文件中使用：
 
