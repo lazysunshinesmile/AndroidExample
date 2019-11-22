@@ -214,15 +214,9 @@ public class BaseTabView extends ScrollView {
                             Log.d(TAG, "onClick: xiangtong");
                             return;
                         }
-                        changeTextSizeWithAnimator(mChangeTextSizeWithAnim, lastSelectedTextView, mTextSizeAfterClick/mTextSize, 1.0f);
-                        initTextView(lastSelectedTextView, false);
+
                     }
-                    changeTextSizeWithAnimator(mChangeTextSizeWithAnim, textView, 1.0f, mTextSizeAfterClick/mTextSize);
-                    textView.setTextColor(mSelectedTextColor);
-                    if(listener != null) {
-                        listener.onSelected(textView, finalI);
-                    }
-                    lastSelected = finalI;
+					selectOne(finalI);
                 }
             });
 
@@ -231,6 +225,21 @@ public class BaseTabView extends ScrollView {
             linearLayout.addView(textView);
             mTitleView.add(textView);
         }
+    }
+	
+	public void selectOne(int index) {
+        if(lastSelected != -1 ) {
+            TextView lastSelectedTextView = mTitleView.get(lastSelected);
+            changeTextSizeWithAnimator(mChangeTextSizeWithAnim, lastSelectedTextView, mTextSizeAfterClick/mTextSize, 1.0f);
+            initTextView(lastSelectedTextView, false);
+        }
+        TextView textView = mTitleView.get(index);
+        changeTextSizeWithAnimator(mChangeTextSizeWithAnim, textView, 1.0f, mTextSizeAfterClick/mTextSize);
+        textView.setTextColor(mSelectedTextColor);
+        if(listener != null) {
+            listener.onSelected(textView, index);
+        }
+        lastSelected = index;
     }
 
     private void initTextView(TextView textView, boolean init) {
@@ -329,7 +338,11 @@ public class BaseTabView extends ScrollView {
         void onSelected(TextView v, int count);
     }
 
-    public List<TextView> getmTitleView() {
+    public List<TextView> getTitleView() {
         return mTitleView;
+    }
+
+	public int getCurrentPosition() {
+        return lastSelected;
     }
 }
