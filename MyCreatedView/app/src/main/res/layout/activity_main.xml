@@ -18,16 +18,39 @@
         android:textSize="40sp"
         app:changeTextSizeWithAnim="true"
         app:dividerColor="#28a1ff"
-        app:dividerHeight="3dp"
+        app:dividerHeight="20dp"
         app:selectedColor="#000034"
-        app:tabPaddingBottom="32dp"
-        app:tabPaddingTob="32dp"
-        app:textSizeAfterClick="54sp" />
-    <TextView
-        android:id="@+id/text"
-        android:gravity="center"
+        app:spaceTitleAndLine="40dp"
+        app:textSizeAfterClick="54sp"
+        app:dividerMarginTob="40dp"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:orientation="horizontal"
+        android:layout_height="120dp">
+        <TextView
+            android:layout_gravity="center"
+            android:text="kkk"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_gravity="center"
+            android:text="jjj"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="mmm"
+            android:textSize="30sp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+    </LinearLayout>>
 </LinearLayout>

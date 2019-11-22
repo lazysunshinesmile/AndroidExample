@@ -14,7 +14,15 @@
         <attr name="tabPaddingLeft" format="dimension" />
         <attr name="tabPaddingRight" format="dimension" />
         <attr name="changeTextSizeWithAnim" format="boolean" />
-
+        <attr name="tabMarginBottom" format="dimension" />
+        <attr name="tabMarginTob" format="dimension" />
+        <attr name="tabMarginLeft" format="dimension" />
+        <attr name="tabMarginRight" format="dimension" />
+        <attr name="spaceTitleAndLine" format="dimension" />
+        <attr name="dividerMarginBottom" format="dimension" />
+        <attr name="dividerMarginTob" format="dimension" />
+        <attr name="dividerMarginLeft" format="dimension" />
+        <attr name="dividerMarginRight" format="dimension" />
     </declare-styleable>
 
 

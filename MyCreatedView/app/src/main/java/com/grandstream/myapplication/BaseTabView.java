@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.grandstream.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,16 @@ public class BaseTabView extends ScrollView {
     private int mTitlePaddingTob;
     private int mTitlePaddingLeft;
     private int mTitlePaddingRight;
+    private int mTitleMarginBottom;
+    private int mTitleMarginTob;
+    private int mTitleMarginLeft;
+    private int mTitleMarginRight;
+    private int mDividerMarginBottom;
+    private int mDividerMarginTob;
+    private int mDividerMarginLeft;
+    private int mDividerMarginRight;
     private boolean mChangeTextSizeWithAnim;
+    private int mSpaceTitleAndLine;
 
     //常态下的颜色
     private int mTextColor;
@@ -102,24 +110,51 @@ public class BaseTabView extends ScrollView {
 
         //获取选择后的字体大小
         mTextSizeAfterClick = ta.getDimensionPixelSize(R.styleable.BaseTabView_textSizeAfterClick, (int) mTextSize);
-		//获取是否需要动画控制标题变化
+        //获取是否需要动画控制标题变化
         mChangeTextSizeWithAnim = ta.getBoolean(R.styleable.BaseTabView_changeTextSizeWithAnim, false);
 
-        //设置TextView 字体(选择/未选择)颜色
+        //获取TextView 字体(选择/未选择)颜色
         mTextColor = ta.getColor(R.styleable.BaseTabView_android_textColor, getResources().getColor(R.color.color_label, null));
         mSelectedTextColor = ta.getColor(R.styleable.BaseTabView_selectedColor, getResources().getColor(R.color.warn_text, null));
         Log.d(TAG, "initAttrs: mTextColor:" + mTextColor);
 
-        //设置Divider参数
-        mDividerColor = ta.getColor(R.styleable.BaseTabView_dividerColor, getResources().getColor(R.color.color_input, null));
-        mDividerHeight = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerHeight, 20);
-        mDividerWidth = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerWidth, getScreenWidth());
+        //获取title和分割线之间的差距
+        mSpaceTitleAndLine = ta.getDimensionPixelSize(R.styleable.BaseTabView_spaceTitleAndLine, 0);
 
-        //设置title上下间距
-        mTitlePaddingBottom = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingBottom, 16);
-        mTitlePaddingTob = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingTob, 16);
-        mTitlePaddingRight = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingRight, 16);
-        mTitlePaddingLeft = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingLeft, 16);
+        //获取Divider参数
+        mDividerColor = ta.getColor(R.styleable.BaseTabView_dividerColor, getResources().getColor(R.color.color_input, null));
+        if(mOriention == LinearLayout.HORIZONTAL) {
+            mDividerHeight = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerHeight, 0);
+            mDividerWidth = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+        } else {
+            mDividerHeight = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerHeight, ViewGroup.LayoutParams.MATCH_PARENT);
+            mDividerWidth = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerWidth, 0);
+        }
+
+        mDividerMarginBottom = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerMarginBottom, 0);
+
+        mDividerMarginRight = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerMarginRight, 0);
+        if(mOriention == LinearLayout.HORIZONTAL) {
+            mDividerMarginTob = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerMarginTob, mSpaceTitleAndLine);
+            mDividerMarginLeft = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerMarginLeft, 0);
+        } else {
+            mDividerMarginTob = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerMarginTob, 0);
+            mDividerMarginLeft = ta.getDimensionPixelSize(R.styleable.BaseTabView_dividerMarginLeft, mSpaceTitleAndLine);
+        }
+
+        //获取title上下padding间距
+        mTitlePaddingBottom = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingBottom, 0);
+        mTitlePaddingTob = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingTob, 0);
+        mTitlePaddingRight = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingRight, 0);
+        mTitlePaddingLeft = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabPaddingLeft, 0);
+
+        //获取title上下margin间距
+        mTitleMarginBottom = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabMarginBottom, 0);
+        mTitleMarginTob = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabMarginTob, 0);
+        mTitleMarginRight = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabMarginRight, 0);
+        mTitleMarginLeft = ta.getDimensionPixelSize(R.styleable.BaseTabView_tabMarginLeft, 0);
+
+
 
     }
 
@@ -146,12 +181,14 @@ public class BaseTabView extends ScrollView {
         parenLinearLayout.addView(linearLayout);
 
         //分割线
-        LinearLayout sonLinearLayout = new LinearLayout(getContext());
-        ViewGroup.LayoutParams parentParams = new ViewGroup.LayoutParams(mDividerWidth, mDividerHeight);
-        sonLinearLayout.setLayoutParams(parentParams);
-        sonLinearLayout.setBackgroundColor(mDividerColor);
+        View dividerLine = new View(getContext());
+        dividerLine.setBackgroundColor(mDividerColor);
+        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(mDividerWidth, mDividerHeight);
+        dividerParams.setMargins(mDividerMarginLeft,mDividerMarginTob,mDividerMarginRight,mDividerMarginBottom);
 
-        parenLinearLayout.addView(sonLinearLayout);
+        dividerLine.setLayoutParams(dividerParams);
+
+        parenLinearLayout.addView(dividerLine);
         addView(parenLinearLayout);
     }
 
@@ -160,47 +197,28 @@ public class BaseTabView extends ScrollView {
 
         mTitleView = new ArrayList<>();
         Log.d(TAG, "onLayout: mtitles:" + mTitles.size());
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if(linearLayout.getOrientation() == LinearLayout.HORIZONTAL) {
-            params.width = getScreenWidth()/mTitles.size();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        } else {
-            params.height = getScreenHeight()/mTitles.size();
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        }
+
 
         for(int i=0; i<mTitles.size();i++) {
             final TextView textView = new TextView(getContext());
             textView.setText(mTitles.get(i));
-            textView.setLayoutParams(params);
 
-            if(linearLayout.getOrientation() == LinearLayout.HORIZONTAL) {
-                //水平
-                textView.setGravity(Gravity.CENTER_HORIZONTAL);
-            } else {
-                //竖直
-                textView.setGravity(Gravity.CENTER_VERTICAL);
-            }
             final int finalI = i;
             textView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "onClick: lastSelected:" + lastSelected  + ", view:" + v);
-
                     if(lastSelected != -1) {
-						TextView lastSelectedTextView = mTitleView.get(lastSelected);
+                        TextView lastSelectedTextView = mTitleView.get(lastSelected);
                         if(lastSelectedTextView == v) {
                             Log.d(TAG, "onClick: xiangtong");
                             return;
                         }
-						changeTextSizeWithAnimator(mChangeTextSizeWithAnim, lastSelectedTextView, mTextSizeAfterClick/mTextSize, 1.0f);
-                        initTextView(lastSelectedTextView);
-                        
+                        changeTextSizeWithAnimator(mChangeTextSizeWithAnim, lastSelectedTextView, mTextSizeAfterClick/mTextSize, 1.0f);
+                        initTextView(lastSelectedTextView, false);
                     }
-                    textView.setPadding(0,0,0,0);
-					changeTextSizeWithAnimator(mChangeTextSizeWithAnim, textView, 1.0f, mTextSizeAfterClick/mTextSize);
+                    changeTextSizeWithAnimator(mChangeTextSizeWithAnim, textView, 1.0f, mTextSizeAfterClick/mTextSize);
                     textView.setTextColor(mSelectedTextColor);
-                    
                     if(listener != null) {
                         listener.onSelected(textView, finalI);
                     }
@@ -208,19 +226,24 @@ public class BaseTabView extends ScrollView {
                 }
             });
 
-            initTextView(textView);
-			textView.setTextSize(mTextUnit, mTextSize);
+            initTextView(textView, true);
+            textView.setTextSize(mTextUnit, mTextSize);
             linearLayout.addView(textView);
             mTitleView.add(textView);
-
         }
-        Log.d(TAG, "onClick: mTitleView.size = :" + mTitleView.size());
-        Log.d(TAG, "xiangsun onLayout: " + linearLayout.getChildCount());
-
     }
 
-    private void initTextView(TextView textView) {
-        
+    private void initTextView(TextView textView, boolean init) {
+        LinearLayout.LayoutParams params;
+        if(init) {
+            params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        } else {
+            params = (LinearLayout.LayoutParams) textView.getLayoutParams();
+        }
+        params.setMargins(mTitleMarginLeft, mTitleMarginTob,mTitleMarginRight,mTitleMarginBottom);
+        params.gravity = Gravity.CENTER;
+        textView.setLayoutParams(params);
+        textView.setGravity(Gravity.CENTER);
         textView.setTextColor(mTextColor);
         textView.setPadding(mTitlePaddingLeft, mTitlePaddingTob, mTitlePaddingRight, mTitlePaddingBottom);
     }
@@ -229,8 +252,6 @@ public class BaseTabView extends ScrollView {
         mTitles = titles;
         initTitleView();
     }
-
-
 
     public void setTextSize(int unit, float textSize) {
         mTextUnit = unit;
@@ -245,7 +266,7 @@ public class BaseTabView extends ScrollView {
         this.listener = listener;
     }
 
-	private void changeTextSizeWithAnimator(boolean isNeedAnim, TextView runView, float start, float end) {
+    private void changeTextSizeWithAnimator(boolean isNeedAnim, TextView runView, float start, float end) {
         Log.d(TAG, "changeTextSizeWithAnimator: annim:" + isNeedAnim);
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(runView, "scaleX", start, end);
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(runView, "scaleY", start, end);
@@ -264,14 +285,15 @@ public class BaseTabView extends ScrollView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.d(TAG, "onMeasure: onMes");
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        ViewGroup.LayoutParams layoutParams;
         for(TextView view: mTitleView) {
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
             if(linearLayout.getOrientation() == LinearLayout.HORIZONTAL) {
-                layoutParams = new LinearLayout.LayoutParams(width /mTitles.size(), ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.width = width / mTitles.size();
             } else {
-                layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT , height/mTitles.size());
+                layoutParams.height = height / mTitles.size();
             }
             view.setLayoutParams(layoutParams);
         }

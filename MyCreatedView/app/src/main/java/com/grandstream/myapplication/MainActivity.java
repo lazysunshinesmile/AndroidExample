@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BaseTabView baseTabView = findViewById(R.id.basetabview);
-        final TextView textView = findViewById(R.id.text);
-        textView.setTextSize(120);
+//        final TextView textView = findViewById(R.id.text);
+//        textView.setTextSize(120);
         List<String> titles = new ArrayList<>();
-        titles.add("nihao1");
+        titles.add("nihao1asfdddddddddddddddddddddddddddddddddddddd");
         titles.add("nihao2");
         titles.add("nihao3");
         baseTabView.setTabTitles(titles);
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSelected(TextView v, int count) {
                 Log.d(TAG, "onSelected: select count:" + count);
-                textView.setText("第"+count+"个标题："+v.getText());
+//                textView.setText("第"+count+"个标题："+v.getText());
             }
 
         });
