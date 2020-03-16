@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.tv_demo);
         Intent intent = new Intent("com.xiangsun.BIND_SERVICE");
-        String packageName = "com.grandstream.myapplication";
+        String packageName = "com.grandstream.myapplication12";
         String serviceClassName = "com.grandstream.myapplication12.XSService";
         intent.setComponent(new ComponentName(packageName, serviceClassName));
         boolean isOk = bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
