@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mPeersList;
     private TextView mStateTV;
     private PeersListAdapter mAdapter;
+    private TextView mPassTV;
 
     private LinkedList<WifiP2pDevice> mDevices;
     private HashSet<WifiP2pDevice> mConnectedDevices;
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         mStateTV = findViewById(R.id.state);
         mPeersList.setLayoutManager(new LinearLayoutManager(this));
         mPeersList.setAdapter(mAdapter);
+        mPassTV = findViewById(R.id.pass);
     }
 
     private void initObj() {
@@ -205,16 +207,11 @@ public class MainActivity extends AppCompatActivity {
                     // Do whatever tasks are specific to the group owner.
                     // One common case is creating a group owner thread and accepting
                     // incoming connections.
+
                 } else if (wifiP2pInfo.groupFormed) {
                     // The other device acts as the peer (client). In this case,
                     // you'll want to create a peer thread that connects
                     // to the group owner.
-                }
-
-                appendLog("获取到连接信息：" + wifiP2pInfo);
-                Log.d(TAG, "onConnectionInfoAvailable: isGoupOwner:" + isGroupOwner);
-                if(!isGroupOwner) {
-
                     appendLog("打开客户端socket");
                     Log.d(TAG, "onConnectionInfoAvailable: 打开客户端socket");
                     Intent intent = new Intent(MainActivity.this, ClientService.class);
@@ -222,6 +219,14 @@ public class MainActivity extends AppCompatActivity {
                     ClientService.setHandler(mHandler);
                     startService(intent);
                 }
+
+                    mManager.requestGroupInfo(mChannel, new WifiP2pManager.GroupInfoListener() {
+                        @Override
+                        public void onGroupInfoAvailable(WifiP2pGroup group) {
+                            String groupPassword = group.getPassphrase();
+                            Log.d(TAG, "onGroupInfoAvailable: grouppassword:" + groupPassword);
+                        }
+                    });
 
             }
 
@@ -321,7 +326,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void createGroup() {
         isGroupOwner = true;
-        mManager.createGroup(mChannel, new WifiP2pManager.ActionListener() {
+//        WifiP2pConfig wifiP2pConfig = new WifiP2pConfig();
+//        wifiP2pConfig. = "12345678";
+        WifiP2pConfig wifip2pConfigBuilder = new WifiP2pConfig.Builder();
+        wifip2pConfigBuilder.setPassphrase("12345678");
+        WifiP2pConfig wifiP2pConfig = wifip2pConfigBuilder.build();
+        WpsInfo wpsInfo = new WpsInfo();
+        wpsInfo.setup = WpsInfo.KEYPAD;
+        wifiP2pConfig.wps = wpsInfo;
+        mPassTV.setText("12345678");
+
+        mManager.createGroup(mChannel, wifiP2pConfig, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
                 appendLog("创建群组成功");

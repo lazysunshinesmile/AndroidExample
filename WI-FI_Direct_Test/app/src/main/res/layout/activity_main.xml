@@ -11,6 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="创建群组"/>
+    <TextView
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintLeft_toRightOf="@id/create_group"
+        android:layout_marginLeft="20dp"
+        />
 
     <Button
         android:id="@+id/discovery_devices"
