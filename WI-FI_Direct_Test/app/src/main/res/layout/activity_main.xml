@@ -5,19 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    
+    <Button
+        android:id="@+id/create_wifi_hot_spot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开wifi热点"/>
 
     <Button
         android:id="@+id/create_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/create_wifi_hot_spot"
+        app:layout_constraintLeft_toLeftOf="@id/create_wifi_hot_spot"
         android:text="创建群组"/>
     <TextView
-        android:id="@+id/pass"
+        android:id="@+id/my_device"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         app:layout_constraintLeft_toRightOf="@id/create_group"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="80dp"
         />
 
     <Button
@@ -57,7 +65,7 @@
         android:id="@+id/state"
         android:layout_width="600dp"
         android:layout_height="400dp"
-        android:text="OFF"
+        android:text=""
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:gravity="bottom"

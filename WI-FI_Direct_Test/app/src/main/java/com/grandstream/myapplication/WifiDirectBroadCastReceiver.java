@@ -103,11 +103,10 @@ public class WifiDirectBroadCastReceiver extends BroadcastReceiver {
                     mWifiP2pManager.requestConnectionInfo(mChannel, new WifiP2pManager.ConnectionInfoListener() {
                         @Override
                         public void onConnectionInfoAvailable(WifiP2pInfo info) {
+                            Log.e(TAG, "已连接p2p设备");
                             mDirectActionListener.onConnectionInfoAvailable(info);
                         }
                     });
-                    Log.e(TAG, "已连接p2p设备");
-                    mDirectActionListener.onConnected();
                 } else {
                     Log.e(TAG, "与p2p设备已断开连接");
                     mDirectActionListener.onDisconnection();

@@ -12,8 +12,6 @@ public interface DirectActionListener extends WifiP2pManager.ChannelListener {
 
     void onConnectionInfoAvailable(WifiP2pInfo wifiP2pInfo);
 
-    void onConnected();
-
     void onDisconnection();
 
     void onSelfDeviceAvailable(WifiP2pDevice wifiP2pDevice);
