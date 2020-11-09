@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mMyDevice;
 
     private LinkedList<WifiP2pDevice> mDevices;
-    private HashSet<WifiP2pDevice> mConnectedDevices;
     private MyActionListener mActionListener;
 
     private static final String INSTANCE_NAME = "my_dnsSdService";
@@ -118,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         mManager.addLocalService(mChannel, mServiceInfo, mActionListener);
 
         mDevices = new LinkedList<>();
-        mConnectedDevices = new HashSet<>();
         WifiP2pDevice dev = new WifiP2pDevice();
         dev.deviceAddress ="123";
         dev.deviceName = "23423";
@@ -438,11 +436,6 @@ public class MainActivity extends AppCompatActivity {
             appendLog("获取到"+wifiP2pDeviceList.size()+"个设备");
             mDevices.clear();
             mDevices.addAll(wifiP2pDeviceList);
-            for(WifiP2pDevice wifiP2pDevice:wifiP2pDeviceList) {
-                if(wifiP2pDevice.status == CONNECTED) {
-                    mConnectedDevices.add(wifiP2pDevice);
-                }
-            }
             mAdapter.setData(mDevices);
         }
 
@@ -460,7 +453,6 @@ public class MainActivity extends AppCompatActivity {
             showToast("onChannelDisconnected");
             mDevices.clear();
             mAdapter.setData(mDevices);
-            mConnectedDevices.clear();
             appendLog("channel disconnect");
         }
     }
