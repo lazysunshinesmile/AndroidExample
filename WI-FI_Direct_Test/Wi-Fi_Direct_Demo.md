@@ -342,5 +342,7 @@ mManager.addServiceRequest(mChannel, upnpRequest, mActionListener);
 
 
 
-## [参考](https://developer.android.google.cn/guide/topics/connectivity/wifip2p?hl=zh-cn)
+## 参考
 
+- [android 原生代码](https://github.com/lazysunshinesmile/AndroidExample/tree/master/CtsVerifier)
+- [android 说明文档](https://developer.android.google.cn/guide/topics/connectivity/wifip2p?hl=zh-cn)
