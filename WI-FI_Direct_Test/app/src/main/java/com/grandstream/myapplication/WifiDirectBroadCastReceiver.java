@@ -24,6 +24,7 @@ import static android.net.wifi.p2p.WifiP2pManager.EXTRA_P2P_DEVICE_LIST;
 import static android.net.wifi.p2p.WifiP2pManager.EXTRA_WIFI_P2P_GROUP;
 import static android.net.wifi.p2p.WifiP2pManager.WIFI_P2P_DISCOVERY_CHANGED_ACTION;
 import static android.net.wifi.p2p.WifiP2pManager.WIFI_P2P_DISCOVERY_STOPPED;
+import static android.net.wifi.p2p.WifiP2pManager.WIFI_P2P_STATE_DISABLED;
 
 public class WifiDirectBroadCastReceiver extends BroadcastReceiver {
 
@@ -72,7 +73,8 @@ public class WifiDirectBroadCastReceiver extends BroadcastReceiver {
         switch(action) {
             // 用于指示 Wifi P2P 是否可用
             case WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION: {
-                int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -100);
+                int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, WIFI_P2P_STATE_DISABLED);
+                Log.d(TAG, "onReceive: state:" + state);
                 if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
                     mDirectActionListener.wifiP2pEnabled(true);
                 } else {
@@ -99,6 +101,11 @@ public class WifiDirectBroadCastReceiver extends BroadcastReceiver {
             case WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION: {
 
                 NetworkInfo networkInfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
+                WifiP2pInfo p2pInfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);
+                WifiP2pGroup p2pGroup = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_GROUP);
+
+
+
                 if (networkInfo != null && networkInfo.isConnected()) {
                     mWifiP2pManager.requestConnectionInfo(mChannel, new WifiP2pManager.ConnectionInfoListener() {
                         @Override
@@ -111,6 +118,10 @@ public class WifiDirectBroadCastReceiver extends BroadcastReceiver {
                     Log.e(TAG, "与p2p设备已断开连接");
                     mDirectActionListener.onDisconnection();
                 }
+
+
+
+
                 break;
             }
             //本设备的设备信息发生了变化
@@ -120,7 +131,8 @@ public class WifiDirectBroadCastReceiver extends BroadcastReceiver {
                 break;
             }
             case WIFI_P2P_DISCOVERY_CHANGED_ACTION: {
-                int discoveryState = intent.getIntExtra(EXTRA_DISCOVERY_STATE, WIFI_P2P_DISCOVERY_STOPPED);
+                int discoveryState = intent.getIntExtra(WifiP2pManager.EXTRA_DISCOVERY_STATE,
+                        WifiP2pManager. WIFI_P2P_DISCOVERY_STOPPED);
                 mDirectActionListener.onDiscoverState(discoveryState);
             }
         }

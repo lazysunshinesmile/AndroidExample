@@ -15,6 +15,8 @@ import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceInfo;
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest;
+import android.net.wifi.p2p.nsd.WifiP2pUpnpServiceInfo;
+import android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,6 +40,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import static android.net.wifi.p2p.WifiP2pDevice.CONNECTED;
@@ -52,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private WifiManager mWifiManager;
     private WifiP2pManager.Channel mChannel;
     private WifiDirectBroadCastReceiver mReceiver;
-    private WifiP2pDnsSdServiceInfo mServiceInfo;
+    private WifiP2pDnsSdServiceInfo mDnsSdServiceInfo;
+    private WifiP2pUpnpServiceInfo mUpnpServiceInfo;
     private HashMap<String, String> mTxtMap;
     private DirectActionListener mDirectActionListener;
     private WifiP2pManager.DnsSdTxtRecordListener mTxtRecorListener;
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String INSTANCE_NAME = "my_dnsSdService";
     private static final String SERVICE_TYPE = "_ipp._tcp";
 
-
+    private boolean isService = true;
 
 
     private Handler mHandler = new Handler() {
@@ -98,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
         initObj();
         initView();
         initListener();
+        if(isService) {
+            appendLog("服务端添加服务");
+        }
     }
 
     private void initObj() {
@@ -110,11 +117,18 @@ public class MainActivity extends AppCompatActivity {
         mServiceResponserListener = new MyServiceResponserListener();
         mConnectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        mTxtMap = new HashMap<>();
-        mTxtMap.put("my_name", "xiangsun");
-        mTxtMap.put("my_company", "grandstream");
-        mServiceInfo = WifiP2pDnsSdServiceInfo.newInstance(INSTANCE_NAME, SERVICE_TYPE, mTxtMap);
-        mManager.addLocalService(mChannel, mServiceInfo, mActionListener);
+        if(isService) {
+            mTxtMap = new HashMap<>();
+            mTxtMap.put("my_name", "xiangsun");
+            mTxtMap.put("my_company", "grandstream");
+            mDnsSdServiceInfo = WifiP2pDnsSdServiceInfo.newInstance(INSTANCE_NAME, SERVICE_TYPE, mTxtMap);
+            mManager.addLocalService(mChannel, mDnsSdServiceInfo, mActionListener);
+            List<String> param = new LinkedList<>();
+            param.add("name:xiangsun");
+            param.add("company:grandstream");
+            mUpnpServiceInfo = WifiP2pUpnpServiceInfo.newInstance("uuid", "device_server", param);
+            mManager.addLocalService(mChannel, mUpnpServiceInfo, mActionListener);
+        }
 
         mDevices = new LinkedList<>();
         WifiP2pDevice dev = new WifiP2pDevice();
@@ -165,8 +179,12 @@ public class MainActivity extends AppCompatActivity {
         mDiscoveryPeers.setOnClickListener(v -> {
             if(mWifiManager.isWifiEnabled()) {
                 appendLog("发现设备");
-//            mManager.discoverPeers(mChannel, mActionListener);
-                discoverServices();
+                if(isService) {
+                    appendLog("服务搜索");
+                    discoverServices();
+                } else {
+                    mManager.discoverPeers(mChannel, mActionListener);
+                }
             } else {
                 appendLog("请先打开wifi");
                 showToast("请先打开wifi");
@@ -175,31 +193,36 @@ public class MainActivity extends AppCompatActivity {
 
         mGetConnectedListBtn.setOnClickListener( v -> {
             appendLog("获取所有已连接设备");
-            mManager.requestGroupInfo(mChannel, new WifiP2pManager.GroupInfoListener() {
-                @Override
-                public void onGroupInfoAvailable(WifiP2pGroup group) {
-                    appendLog("已连接设备：");
-                    Collection<WifiP2pDevice> devices = group.getClientList();
-                    int i=1;
-                    for(WifiP2pDevice d: devices) {
-                        appendLog(
-                                (i++) +
-                                        ": ip:" +
-                                        d.deviceAddress+
-                                        ", name:" +
-                                        d.deviceName +
-                                        ", isGroupOwner:" +
-                                        d.isGroupOwner() );
-                    }
+        mManager.requestGroupInfo(mChannel, new WifiP2pManager.GroupInfoListener() {
+            @Override
+            public void onGroupInfoAvailable(WifiP2pGroup group) {
+                appendLog("已连接设备：");
+                Collection<WifiP2pDevice> devices = group.getClientList();
+                int i=1;
+                for(WifiP2pDevice d: devices) {
+                    appendLog(
+                            (i++) +
+                                    ": ip:" +
+                                    d.deviceAddress+
+                                    ", name:" +
+                            d.deviceName +
+                                    ", isGroupOwner:" +
+                                    d.isGroupOwner() );
                 }
-            });
+            }
+        });
         });
         mManager.setDnsSdResponseListeners(mChannel, mServiceResponserListener, mTxtRecorListener);
+        mManager.setUpnpServiceResponseListener(mChannel, mUpnpListener);
     }
 
     private void discoverServices() {
-        WifiP2pDnsSdServiceRequest request = WifiP2pDnsSdServiceRequest.newInstance(INSTANCE_NAME, SERVICE_TYPE);
-        mManager.addServiceRequest(mChannel, request, mActionListener);
+        WifiP2pDnsSdServiceRequest txtRequest = WifiP2pDnsSdServiceRequest.newInstance(INSTANCE_NAME, SERVICE_TYPE);
+        WifiP2pDnsSdServiceRequest ptrRequest = WifiP2pDnsSdServiceRequest.newInstance(SERVICE_TYPE);
+        WifiP2pUpnpServiceRequest upnpRequest = WifiP2pUpnpServiceRequest.newInstance("ssdp:all");
+        mManager.addServiceRequest(mChannel, txtRequest, mActionListener);
+        mManager.addServiceRequest(mChannel, ptrRequest, mActionListener);
+        mManager.addServiceRequest(mChannel, upnpRequest, mActionListener);
         mManager.discoverServices(mChannel, mActionListener);
     }
 
@@ -224,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, WifiDirectBroadCastReceiver.getIntentFilter());
         mHandler.postDelayed(() -> {
                 mReceiver.setDirectActionListener(mDirectActionListener);
-            }, 1000);
+            }, 0);
 
     }
 
@@ -471,12 +494,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onDnsSdTxtRecordAvailable(String fullDomainName, Map<String, String> txtRecordMap, WifiP2pDevice srcDevice) {
-            Log.d(TAG, "onDnsSdServiceAvailable: fullDomainName:" + fullDomainName);
+            Log.d(TAG, "onDnsSdServiceAvaila" +
+                    "ble: fullDomainName:" + fullDomainName);
             for(String key:txtRecordMap.keySet()) {
                 Log.d(TAG, "onDnsSdTxtRecordAvailable: key:" + key + ", value:" + txtRecordMap.get(key));
             }
 
-            Log.d(TAG, "onDnsSdServiceAvailable: srcDevice:" + srcDevice);
+            Log.d(TAG, "onDnesSdServiceAvailable: srcDevice:" + srcDevice);
         }
     }
+
+    private WifiP2pManager.UpnpServiceResponseListener mUpnpListener = new  WifiP2pManager.UpnpServiceResponseListener() {
+
+        @Override
+        public void onUpnpServiceAvailable(List<String> uniqueServiceNames, WifiP2pDevice srcDevice) {
+            Log.d(TAG, "onUpnpServiceAvailable: uniqueddServiceNames:" + uniqueServiceNames);
+            Log.d(TAG, "onUpnpServiceAvailabld: srcDevice:" + srcDevice);
+        }
+    };
 }
