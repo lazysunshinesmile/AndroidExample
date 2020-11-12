@@ -362,15 +362,15 @@ mManager.addServiceRequest(mChannel, upnpRequest, mActionListener);
 
 1. 服务端
 
-   ![image-20201112095806426](../../../../.config/joplin-desktop/resources/image-20201112095806426.png)
+   ![image-20201112100646259](Wi-Fi_Direct_Demo.assets/image-20201112100646259.png)
 
 2. 客户端1，2，3
 
-   ![image-20201112095838113](../../../../.config/joplin-desktop/resources/image-20201112095838113.png)
+   ![image-20201112100728145](Wi-Fi_Direct_Demo.assets/image-20201112100728145.png)
 
-   ![image-20201112095857755](../../../../.config/joplin-desktop/resources/image-20201112095857755.png)
+   ![image-20201112100742931](Wi-Fi_Direct_Demo.assets/image-20201112100742931.png)
 
-   ![image-20201112095920292](../../../../.config/joplin-desktop/resources/image-20201112095920292.png)
+   ![image-20201112100753441](Wi-Fi_Direct_Demo.assets/image-20201112100753441.png)
 
 ## 参考
 
