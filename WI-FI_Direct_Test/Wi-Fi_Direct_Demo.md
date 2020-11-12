@@ -29,6 +29,7 @@ mManager.createGroup(mChannel, new WifiP2pManager.ActionListener() {
     @Override
     public void onSuccess() {
         appendLog("创建群组成功");
+        //在这里就可以创建ServerSocket 并等待客户端的接入了。
         ...
     }
 
@@ -175,18 +176,35 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             //获取所有扫描到的设备。
             WifiP2pDeviceList mPeers = intent.getParcelableExtra(WifiP2pManager.EXTRA_P2P_DEVICE_LIST);
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
-            // Respond to new connection or disconnections
-            // wifi p2p 连接状态发生变化
+            / // Respond to new connection or disconnections
+            // wifi p2p 连接状态发生变化，在创建组成功也会进入到这个广播
                             
             //获取wifip2p网络状态
             NetworkInfo networkInfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
+            
             // 关于这个群组的连接信息。有三个属性：
-            // 1. groupFormed 群组是否已经形成，作为群组，创建群组之后，获得的该属性即为true
-            // 2. isGroupOwner 本设备是否为群组
-            // 3. groupOwnerAddress 群组的ip地址。
+            // 1. groupFormed 群组是否已经形成，作为群主，创建群组之后，获得的该属性即为true
+            // 2. isGroupOwner 本设备是否为群主
+            // 3. groupOwnerAddress 群主的ip地址。
             WifiP2pInfo p2pInfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);
+            
             // 群组的相关信息。网络名称，密码，所有已连接的设备等。
             WifiP2pGroup p2pGroup = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_GROUP);
+            
+            
+            if (networkInfo != null && networkInfo.isConnected()) {
+                //表明连接上了,创建组成功也会进入到这个判断
+                if (wifiP2pInfo.groupFormed && wifiP2pInfo.isGroupOwner) {
+                	//group已经形成，且本设备是群主，
+                    
+                } else if (wifiP2pInfo.groupFormed) {
+                	//group已经形成，但本设备不是群主
+                    //获取群主IP
+                    String groupOwnerAddress = wifiP2pInfo.groupOwnerAddress.getHostAddress();
+                    //建立Socket连接。
+                }
+                
+            }
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
             // Respond to this device's wifi state changing
             //本设备信息发生变化
@@ -220,7 +238,7 @@ mManager.requestConnectionInfo(mChannel, new WifiP2pManager.ConnectionInfoListen
             // Do whatever tasks are specific to the group owner.
             // One common case is creating a group owner thread and accepting
             // incoming connections.
-           	//群已建立，且是群主，建立群成功后，就会收到这个广播，并进入这个判断。
+           	//群已建立，且是群主，建立群成功后
             //在这里就可以获取群信息，获取到创建群组中提到的wifi密码。这样没有wifip2p功能的设备就可以通过连接热点进入群组当中。代码如下。
             mManager.requestGroupInfo(mChannel, new WifiP2pManager.GroupInfoListener() {
                 @Override
@@ -233,7 +251,7 @@ mManager.requestConnectionInfo(mChannel, new WifiP2pManager.ConnectionInfoListen
             // The other device acts as the peer (client). In this case,
             // you'll want to create a peer thread that connects
             // to the group owner.
-           	// 客户端会进入这个判断，再根据上面获得的'groupOwnerAddress'，连接服务端Socket。
+           	// 客户端会进入这个判断
         }
        	
     }
@@ -340,7 +358,19 @@ mManager.addServiceRequest(mChannel, upnpRequest, mActionListener);
 
 ### 其余步骤与上面相同
 
+## 测试样图
 
+1. 服务端
+
+   ![image-20201112095806426](../../../../.config/joplin-desktop/resources/image-20201112095806426.png)
+
+2. 客户端1，2，3
+
+   ![image-20201112095838113](../../../../.config/joplin-desktop/resources/image-20201112095838113.png)
+
+   ![image-20201112095857755](../../../../.config/joplin-desktop/resources/image-20201112095857755.png)
+
+   ![image-20201112095920292](../../../../.config/joplin-desktop/resources/image-20201112095920292.png)
 
 ## 参考
 

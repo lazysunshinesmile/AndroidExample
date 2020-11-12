@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             List<String> param = new LinkedList<>();
             param.add("name:xiangsun");
             param.add("company:grandstream");
-            mUpnpServiceInfo = WifiP2pUpnpServiceInfo.newInstance("uuid", "device_server", param);
+            mUpnpServiceInfo = WifiP2pUpnpServiceInfo.newInstance("6859dede-8574-59ab-9332-123456789012", "device_server", param);
             mManager.addLocalService(mChannel, mUpnpServiceInfo, mActionListener);
         }
 
