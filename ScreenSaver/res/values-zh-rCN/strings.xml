@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">屏保</string>
+    <!-- 
+    <string name="begin_screen_saver">立即显示动画</string>
+    <string name="screen_saver_setting_title">屏保设置</string>
+
+    <string name="picture_path_setting">路径设置</string>
+    <string name="use_http_summary">选中后屏保图片将来自网络</string>
+    <string name="use_http">是否使用网络图片</string>
+    <string name="http_url_summary">设置网络图片的地址</string>
+    <string name="http_url">网络图片</string>
+    <string name="local_path_summary">设置本地图片存放的路径</string>
+    <string name="local_path">本地图片</string>
+
+    <string name="screen_saver_time_setting">时间设置</string>
+    <string name="screen_saver_timeout_summary">设置屏保动画的超时时间</string>
+    <string name="screen_saver_timeout">屏保超时</string>
+    <string name="anim_idle_time_summary">设置动画之间的时间间隔</string>
+    <string name="anim_idle_time">动画间隔时间</string>
+     -->
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gs_switch_width">81px</dimen>
+    <dimen name="gs_switch_height">54px</dimen>
+    <dimen name="gs_error_text_size">20px</dimen>
+    <dimen name="gs_category_height">40px</dimen>
+    <dimen name="gs_preference_margin_right">40px</dimen>
+    <dimen name="gs_preference_margin_left">40px</dimen>
+    <dimen name="gs_category_textsize">20px</dimen>
+    
+</resources>

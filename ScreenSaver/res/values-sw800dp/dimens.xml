@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gs_error_text_size">24px</dimen>
+    <dimen name="gs_category_height">48px</dimen>
+    <dimen name="gs_preference_margin_right">30px</dimen>
+    <dimen name="gs_preference_margin_left">30px</dimen>
+    <dimen name="gs_category_textsize">26px</dimen>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <style name="Gs.ScreenSaver" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="@*android:statusBarColor">@color/gs_panel_color</item>
+        <item name="android:switchStyle">@style/Gs_Switch</item>
+        <item name="android:switchPreferenceStyle">@style/GsSwitchPreference</item>
+        <item name="android:preferenceCategoryStyle">@style/Gs_PreferenceCategory</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>

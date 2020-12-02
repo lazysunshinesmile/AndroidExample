@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.base.module.screensaver"
+    android:versionCode="1"
+    android:versionName="1.0"
+    android:sharedUserId="android.uid.system">
+
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_OWNER_DATA" />
+    <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
+
+    <application
+        android:name=".ScreenSaver"
+        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <!-- android:theme="@android:style/Theme.Dialog" -->
+        <activity
+            android:name=".ui.ScreenSaverActivity"
+            
+            android:launchMode="singleInstance" >
+            <intent-filter>
+                <action android:name="com.base.module.action.SCREENSAVER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.SettingPreference"
+            android:persistent="false"
+            android:exported="true"
+            android:theme="@style/Gs.ScreenSaver" >
+            <intent-filter>
+                <action android:name="com.base.module.action.SCREENSAVERSETTING" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- Dream (screensaver) implementation -->
+        <service android:name="ScreenSaverService"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/dream_info" />
+        </service>
+    </application>
+
+</manifest>

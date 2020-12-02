@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="screen_saver_setting_title" 
+    xmlns:settings="http://schemas.android.com/apk/res/com.base.module.screensaver" >
+
+    <PreferenceCategory android:key="picture_path_setting" >
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="use_http" />
+
+        <EditTextPreference
+            android:enabled="false"
+            android:key="http_url" />
+
+        <Preference android:key="local_path" />
+        
+        <Preference android:key="preview" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.base.module.screensaver"
+                android:targetClass="com.base.module.screensaver.ui.ScreenSaverActivity" />
+        </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory android:key="screen_saver_time_setting" >
+        <!--
+        <ListPreference
+            android:entries="@array/screen_saver_timeout_entries"
+            android:entryValues="@array/screen_saver_timeout_values"
+            android:key="screen_saver_timeout"
+            android:persistent="false" />
+            -->
+        <ListPreference
+            android:entries="@array/anim_idle_time_entries"
+            android:entryValues="@array/anim_idle_time_values"
+            android:key="anim_idle_time"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_in_time">3900</integer>
+    <integer name="anim_in_time1">2000</integer>
+    <integer name="anim_in_time2">1900</integer>
+    
+    <integer name="anim_out_time">1500</integer>
+    <integer name="anim_out_time1">1000</integer>
+    <integer name="anim_out_time2">500</integer>
+</resources>

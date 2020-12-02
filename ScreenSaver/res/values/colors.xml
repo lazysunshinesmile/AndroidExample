@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gs_panel_color">#333333</color>
+    <color name="gs_category_textcolor">#2f83e0</color>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gs_switch_width">55dp</dimen>
+    <dimen name="gs_switch_height">35dp</dimen>
+    <dimen name="gs_error_text_size">16sp</dimen>
+    <dimen name="gs_category_height">26dp</dimen>
+    <dimen name="gs_preference_margin_right">20dp</dimen>
+    <dimen name="gs_preference_margin_left">20dp</dimen>
+    <dimen name="gs_category_textsize">15sp</dimen>
+</resources>

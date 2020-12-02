@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GS_module_1200</string>
+    <!--
+    <string name="begin_screen_saver">begin screen saver</string>
+    <string name="screen_saver_setting_title">Screen Saver Setting</string>
+
+    <string name="picture_path_setting">picture_path_setting</string>
+    <string name="use_http_summary">the pictures will come from Internet if setting checked</string>
+    <string name="use_http">whether use Internet pictures</string>
+    <string name="http_url_summary">Set Internet Pictures URL</string>
+    <string name="http_url">Internet Pictures</string>
+    <string name="local_path_summary">Set Local Pictures Path</string>
+    <string name="local_path">Local Pictures</string>
+
+    <string name="screen_saver_time_setting">Timeout Setting</string>
+    <string name="screen_saver_timeout_summary">Screen Saver Timeout Setting</string>
+    <string name="screen_saver_timeout">Screen Saver Timeout</string>
+    <string name="anim_idle_time_summary">Set the Idle Time During Animating</string>
+    <string name="anim_idle_time">Idle Time During Animating</string>
+    -->
+
+</resources>
