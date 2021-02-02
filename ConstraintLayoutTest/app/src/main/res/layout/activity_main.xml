@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <!--指定高度，宽度随着宽高比自适应 -->
+    <!--app:layout_constraintDimensionRatio="16:8"  W: 默认，表示宽高比，
+    因为有layout_constraintLeft_toLeftOf， 所以以宽为基准-->
+    <TextView
+        android:id="@+id/text_01"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#B0E46E"
+        android:text="text_01"
+        app:layout_constraintDimensionRatio="16:8"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <!--指定高度，宽度随着宽高比自适应 -->
+    <!--app:layout_constraintDimensionRatio="H,16:8"  H: 表示高宽比，
+    但因为layout_constraintLeft_toLeftOf，所以最终以width为基准-->
+    <TextView
+        android:id="@+id/text_02"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#AA4727"
+        android:text="text_02"
+        app:layout_constraintDimensionRatio="H,16:8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_01" />
+
+    <!--指定宽度，按照宽度来计算高宽比，默认是宽高比 -->
+    <TextView
+        android:id="@+id/text_03"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:background="#F6BE4F"
+        android:text="text_03"
+        app:layout_constraintDimensionRatio="16:8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_02" />
+
+    <!--指定宽度，按照宽度来计算高宽比  W:表示高宽比 -->
+    <TextView
+        android:id="@+id/text_04"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:background="#CA4B45"
+        android:text="text_04"
+        app:layout_constraintDimensionRatio="W,16:8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_03" />
+
+    <!--android:layout_width="0dp"  0dp表示充满父控件或说是充满其余空间-->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CFDEF9"
+        android:text="text_05"
+        app:layout_constraintDimensionRatio="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_04" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
