@@ -1,5 +1,7 @@
 package com.example.animationstudy;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,15 +9,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 
 public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView {
     private final static String TAG = TodoStatusView.class.getSimpleName();
 
     private Paint mOutPaint;
     private Paint mInPaint;
+    private Paint mTickPaint;
     private float mOutRadius;
     private float mInRadius;
-    boolean isTick;
+    private boolean isTickShow;
 
     public TodoStatusView(Context context) {
         this(context, null);
@@ -38,7 +43,11 @@ public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView 
         mInPaint.setStyle(Paint.Style.FILL);
         mInPaint.setColor(Color.WHITE);
 
-        isTick = false;
+        mTickPaint =new Paint();
+        mTickPaint.setStyle(Paint.Style.STROKE);
+        mTickPaint.setColor(Color.WHITE);
+
+        isTickShow = false;
         mInRadius = -1;
         mOutPaint.setAntiAlias(true);
         mInPaint.setAntiAlias(true);
@@ -59,16 +68,64 @@ public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.d(TAG, "onDraw: mOutRadius:" + mOutRadius + ", mInRadius:" + mInRadius);
-        float cx = getWidth()/2;
-        float cy = getHeight()/2;
-        canvas.drawCircle(cx, cy, mOutRadius, mOutPaint);
-        canvas.drawCircle(cx, cy, mInRadius, mInPaint);
+        if(!isTickShow) {
+            Log.d(TAG, "onDraw: mOutRadius:" + mOutRadius + ", mInRadius:" + mInRadius);
+            float cx = getWidth() / 2;
+            float cy = getHeight() / 2;
+            canvas.drawCircle(cx, cy, mOutRadius, mOutPaint);
+            canvas.drawCircle(cx, cy, mInRadius, mInPaint);
+        } else {
+            Log.d(TAG, "onDraw: mOutRadius:" + mOutRadius + ", mInRadius:" + mInRadius);
+            float cx = getWidth() / 2;
+            float cy = getHeight() / 2;
+            canvas.drawCircle(cx, cy, mOutRadius, mOutPaint);
+            canvas.drawCircle(cx, cy, mInRadius, mInPaint);
+        }
     }
 
+
     public void changeState() {
-        float start = mOutRadius *2/5;
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(start, 0);
+        AnimatorSet animatorSet = new AnimatorSet();
+        Animator circle = getInnerCircleAnimator(!isTickShow);
+        Animator tick = getTickAnimator(!isTickShow);
+        animatorSet.playSequentially(circle);
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isTickShow = !isTickShow;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animatorSet.start();
+    }
+
+    private Animator getTickAnimator(boolean b) {
+        return null;
+    }
+
+    public Animator getInnerCircleAnimator(boolean isFinish) {
+        float start = mOutRadius * 2 / 5;
+        float end = 0;
+        if(!isFinish) {
+            start = 0;
+            end = mOutRadius *2/5;
+        }
+        Log.d(TAG, "changeInnerCircle: start:" + start + ", end:" + end);
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(start, end);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -76,9 +133,8 @@ public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView 
                 invalidate();
             }
         });
-        valueAnimator.setDuration(200);
-        valueAnimator.start();
-
+        valueAnimator.setDuration(250);
+        return valueAnimator;
 
     }
 
