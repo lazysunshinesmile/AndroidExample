@@ -9,6 +9,9 @@ import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -208,7 +212,18 @@ public class FirstFragment extends Fragment {
         });
 
 
+        view.findViewById(R.id.path_anim).setOnClickListener((v -> {
+            RectView view1 = (RectView)(view.findViewById(R.id.rect_view));
+            float[] leftTop = new float[]{0,0};
+            float[] rightDown = new float[] {300, 300};
+            view1.start(leftTop, rightDown);
+        }));
 
+
+        view.findViewById(R.id.other_anim).setOnClickListener(v -> {
+            NavHostFragment.findNavController(FirstFragment.this)
+                    .navigate(R.id.action_FirstFragment_to_OtherAnim);
+        });
 
 
 

@@ -5,6 +5,7 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="third_fragment_label">Third Fragment</string>
+    <string name="other_anim_label">Other Anim Fragment</string>
     <string name="next">Next</string>
     <string name="surface_view">SurfaceView</string>
     <string name="previous">Previous</string>
