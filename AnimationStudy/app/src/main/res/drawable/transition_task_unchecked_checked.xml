@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_task_button_checked">
+    <!--打勾动画，由 task_tick_check.xml 指定-->
+    <target
+        android:animation="@animator/task_tick_check"
+        android:name="tick"/>
+
+    <!--圆形变色，由 task_arranged_circle_check.xml 指定-->
+    <target
+        android:animation="@animator/task_circle_check"
+        android:name="circle" />
+
+    <!--放大缩小，由 task_circle_group_check.xml 指定-->
+    <target
+        android:animation="@animator/task_circle_group_check"
+        android:name="circle_group" />
+</animated-vector>

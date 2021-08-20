@@ -30,9 +30,9 @@ public class OtherAnimFragment extends Fragment {
             underLineSpan.startUnderlineAnimation();
         });
 
-        TodoStatusView todoStatusView = view.findViewById(R.id.circle);
-        todoStatusView.setOnClickListener(v -> {
-            todoStatusView.changeState();
-        });
+//        TodoStatusView todoStatusView = view.findViewById(R.id.circle);
+//        todoStatusView.setOnClickListener(v -> {
+//            todoStatusView.changeState();
+//        });
     }
 }

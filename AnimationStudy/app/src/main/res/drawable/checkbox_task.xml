@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visible="true"
+    android:dither="true">
+
+    <!--勾选-->
+    <item
+        android:id="@+id/checked"
+        android:state_checked="true"
+        android:drawable="@drawable/ic_task_button_checked" />
+
+    <!--未勾选-->
+    <item
+        android:id="@+id/unchecked"
+        android:drawable="@drawable/ic_task_button_normal" />
+
+    <!--未勾选过渡到已勾选-->
+    <transition
+        android:drawable="@drawable/transition_task_unchecked_checked"
+        android:fromId="@id/unchecked"
+        android:toId="@id/checked" />
+
+    <!--已勾选过渡到未勾选-->
+    <transition
+        android:drawable="@drawable/transition_task_checked_unchecked"
+        android:fromId="@id/checked"
+        android:toId="@id/unchecked" />
+
+</animated-selector>

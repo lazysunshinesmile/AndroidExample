@@ -7,10 +7,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 
 public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView {
     private final static String TAG = TodoStatusView.class.getSimpleName();
@@ -21,6 +21,11 @@ public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView 
     private float mOutRadius;
     private float mInRadius;
     private boolean isTickShow;
+
+
+    private Path mTickPath;
+    private RectF mTickRect;
+
 
     public TodoStatusView(Context context) {
         this(context, null);
@@ -39,18 +44,20 @@ public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView 
         mOutPaint = new Paint();
         mOutPaint.setStyle(Paint.Style.FILL);
         mOutPaint.setColor(Color.BLACK);
+        mOutPaint.setAntiAlias(true);
         mInPaint = new Paint();
         mInPaint.setStyle(Paint.Style.FILL);
         mInPaint.setColor(Color.WHITE);
+        mInPaint.setAntiAlias(true);
 
         mTickPaint =new Paint();
-        mTickPaint.setStyle(Paint.Style.STROKE);
+        mTickPaint.setStyle(Paint.Style.FILL);
         mTickPaint.setColor(Color.WHITE);
+        mTickPaint.setAntiAlias(true);
+        mTickRect = new RectF();
 
         isTickShow = false;
         mInRadius = -1;
-        mOutPaint.setAntiAlias(true);
-        mInPaint.setAntiAlias(true);
     }
 
     @Override
@@ -63,26 +70,28 @@ public class TodoStatusView extends androidx.appcompat.widget.AppCompatTextView 
         }
         Log.d(TAG, "onLayout: mInRadius:" + mInRadius);
         Log.d(TAG, "onLayout: mOutRadius:" + mOutRadius);
+        initPath(getWidth(), getHeight());
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        float cx = getWidth() / 2;
+        float cy = getHeight() / 2;
+        canvas.drawCircle(cx, cy, mOutRadius, mOutPaint);
         if(!isTickShow) {
             Log.d(TAG, "onDraw: mOutRadius:" + mOutRadius + ", mInRadius:" + mInRadius);
-            float cx = getWidth() / 2;
-            float cy = getHeight() / 2;
-            canvas.drawCircle(cx, cy, mOutRadius, mOutPaint);
             canvas.drawCircle(cx, cy, mInRadius, mInPaint);
         } else {
-            Log.d(TAG, "onDraw: mOutRadius:" + mOutRadius + ", mInRadius:" + mInRadius);
-            float cx = getWidth() / 2;
-            float cy = getHeight() / 2;
-            canvas.drawCircle(cx, cy, mOutRadius, mOutPaint);
-            canvas.drawCircle(cx, cy, mInRadius, mInPaint);
         }
     }
 
+    private void initPath(int width, int height) {
+        mTickPath = new Path();
+        mTickRect.set(width*5/18, height/2, width/2, 3*height/4);
+        mTickPath.addRect(mTickRect,  Path.Direction.CW);
+    }
 
     public void changeState() {
         AnimatorSet animatorSet = new AnimatorSet();

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 圆形的描边宽度从 2 变为 0 -->
+    <objectAnimator
+        android:duration="100"
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:propertyName="strokeWidth"
+        android:valueFrom="2"
+        android:valueTo="0"
+        android:valueType="floatType" />
+    <!-- 圆形的填充颜色由浅变深 -->
+    <objectAnimator
+        android:duration="100"
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:propertyName="fillColor"
+        android:valueFrom="#E1F0FF"
+        android:valueTo="#1E90FF"
+        android:valueType="colorType" />
+    <!-- 圆形的描边宽度从 0 重新变为 2，注意偏移时间不要漏了 -->
+    <objectAnimator
+        android:duration="100"
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:startOffset="100"
+        android:propertyName="strokeWidth"
+        android:valueFrom="0"
+        android:valueTo="2"
+        android:valueType="floatType" />
+</set>
