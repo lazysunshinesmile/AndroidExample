@@ -17,5 +17,15 @@
       android:fillColor="#00000000"
       android:strokeColor="#FFFFFF"
       android:fillType="evenOdd"/>
+  <group android:name="inner_circle_group" android:pivotY="12" android:pivotX="12">
+
+    <path
+        android:name="in_circle"
+        android:pathData="M12,12m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0"
+        android:strokeWidth="1"
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
 
 </vector>

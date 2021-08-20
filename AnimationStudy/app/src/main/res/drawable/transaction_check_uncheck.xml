@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic__checked_anim"
+    >
+    <target
+        android:animation="@animator/inner_scale_uncheck"
+        android:name="inner_circle_group"/>
+    <target
+        android:animation="@animator/tick_uncheck"
+        android:name="tick"/>
+
+</animated-vector>

@@ -30,7 +30,7 @@
     </style>
     <style name="Theme.AnimationStudy.MyCheckbox">
         <item name="android:button">@null</item>
-        <item name="android:drawableStart">@drawable/checkbox_task</item>
+        <item name="android:drawableStart">@drawable/my_checkbox</item>
     </style>
 
     <style name="Theme.AnimationStudy.CheckBoxRippleBlue" parent="Theme.AnimationStudy">
