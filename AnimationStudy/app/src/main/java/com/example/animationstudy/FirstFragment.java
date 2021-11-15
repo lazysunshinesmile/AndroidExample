@@ -4,22 +4,16 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,7 +21,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.Arrays;
@@ -38,6 +31,7 @@ import static android.graphics.Color.RED;
 public class FirstFragment extends Fragment {
 
     private String TAG = FirstFragment.class.getSimpleName();
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -46,7 +40,9 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
+
     boolean start = false;
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "sunxiang 111122");
@@ -67,10 +63,10 @@ public class FirstFragment extends Fragment {
         ImageView img = view.findViewById(R.id.img);
 
         AnimationDrawable animationDrawable = new AnimationDrawable();
-        for(int i=1; i<=7; i++) {
+        for (int i = 1; i <= 7; i++) {
             int id = getResources().getIdentifier("a" + i, "drawable", getActivity().getPackageName());
             Drawable d = getResources().getDrawable(id);
-            if(d == null) {
+            if (d == null) {
                 Log.d("{sunxiang}", "onViewCreated: null");
             }
             animationDrawable.addFrame(d, 1000);
@@ -92,12 +88,10 @@ public class FirstFragment extends Fragment {
             animationDrawable.setOneShot(true);
 
             img.setImageDrawable(animationDrawable);
-            if(start) {
+            if (start) {
                 animationDrawable.stop();
-                start =false;
-            }
-            
-            else {
+                start = false;
+            } else {
                 start = true;
                 animationDrawable.start();
             }
@@ -106,14 +100,14 @@ public class FirstFragment extends Fragment {
 
         Button valueAnimOfInt = view.findViewById(R.id.value_anim_ofint);
 
-        valueAnimOfInt.setOnClickListener(v->{
+        valueAnimOfInt.setOnClickListener(v -> {
             ValueAnimator valueAnimator = ValueAnimator.ofInt(1, 5);
             valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     int x = (int) animation.getAnimatedValue();
                     int oh = valueAnimOfInt.getHeight();
-                    Log.d(TAG, "onAnimationUpdate: "+x +", " + oh);
+                    Log.d(TAG, "onAnimationUpdate: " + x + ", " + oh);
                     Log.d(TAG, "onAnimationUpdate: animated fraction:" + animation.getAnimatedFraction());
                     valueAnimOfInt.setHeight(oh + x);
                     valueAnimOfInt.invalidate();
@@ -137,7 +131,7 @@ public class FirstFragment extends Fragment {
             animator.addUpdateListener(animation -> {
                 float f = (float) animation.getAnimatedValue();
                 Log.d(TAG, "onViewCreated: animated fraction:" + animation.getAnimatedFraction());
-                int width = (int) (valueOfFloat.getWidth() +  f);
+                int width = (int) (valueOfFloat.getWidth() + f);
                 valueOfFloat.setText("当前宽度是：" + width);
                 valueOfFloat.setWidth(width);
 
@@ -147,11 +141,11 @@ public class FirstFragment extends Fragment {
 
 
         Button valueOfObj = view.findViewById(R.id.value_anim_of_obj);
-        Point start = new Point(0f, valueOfObj.getHeight()*2f);
+        Point start = new Point(0f, valueOfObj.getHeight() * 2f);
         Point end = new Point(getActivity().getWindowManager().getDefaultDisplay().getWidth() - valueOfObj.getWidth(),
-        getActivity().getWindowManager().getDefaultDisplay().getHeight() - valueOfObj.getHeight());
-        Log.d(TAG, "onViewCreated: start.x:" +start.x + ", start.y:" + start.y);
-        Log.d(TAG, "onViewCreated: end.x:" +end.x + ", end.y:" + end.y);
+                getActivity().getWindowManager().getDefaultDisplay().getHeight() - valueOfObj.getHeight());
+        Log.d(TAG, "onViewCreated: start.x:" + start.x + ", start.y:" + start.y);
+        Log.d(TAG, "onViewCreated: end.x:" + end.x + ", end.y:" + end.y);
         valueOfObj.setOnClickListener(v -> {
             ValueAnimator valueAnimator = ValueAnimator.ofObject(new TypeEvaluator() {
                 @Override
@@ -162,9 +156,9 @@ public class FirstFragment extends Fragment {
 //                    Log.d(TAG, "evaluate: startP.y:" + startP.y);
                     Log.d(TAG, "evaluate: endP.x:" + endP.x);
 //                    Log.d(TAG, "evaluate: endP.y:" + endP.y);
-                    float x =  (startP.x + fraction*(endP.x - startP.x));
-                    float y =  (startP.y + fraction*(endP.y - startP.y));
-                    Log.d(TAG, "evaluate: .x:" + x + ", .y:" + y) ;
+                    float x = (startP.x + fraction * (endP.x - startP.x));
+                    float y = (startP.y + fraction * (endP.y - startP.y));
+                    Log.d(TAG, "evaluate: .x:" + x + ", .y:" + y);
 
                     return new Point(x, y);
                 }
@@ -193,14 +187,14 @@ public class FirstFragment extends Fragment {
         });
 
         Button objAnim = view.findViewById(R.id.obj_anim);
-        objAnim.setOnClickListener(v->{
+        objAnim.setOnClickListener(v -> {
             ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(v,
-                    "alpha",1f,0f,1f);
-            ObjectAnimator objectAnimator2 = ObjectAnimator.ofInt(v, "backgroundColor", GREEN,RED);
-            ObjectAnimator objectAnimator3 = ObjectAnimator.ofFloat(v, "rotation", 0f,360f);
+                    "alpha", 1f, 0f, 1f);
+            ObjectAnimator objectAnimator2 = ObjectAnimator.ofInt(v, "backgroundColor", GREEN, RED);
+            ObjectAnimator objectAnimator3 = ObjectAnimator.ofFloat(v, "rotation", 0f, 360f);
             ObjectAnimator objectAnimator4 = ObjectAnimator.ofFloat(v, "translationX", objAnim.getTranslationX(),
                     getActivity().getWindowManager().getDefaultDisplay().getWidth(), objAnim.getTranslationX());
-            ObjectAnimator objectAnimator5 = ObjectAnimator.ofFloat(v, "scaleX", 1f,1.5f);
+            ObjectAnimator objectAnimator5 = ObjectAnimator.ofFloat(v, "scaleX", 1f, 1.5f);
             AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.play(objectAnimator1).before(objectAnimator2).before(objectAnimator3).before(objectAnimator4).with(objectAnimator5);
             animatorSet.setDuration(20000);
@@ -208,30 +202,12 @@ public class FirstFragment extends Fragment {
         });
 
 
-        view.findViewById(R.id.interpolator_typeevaluator).setOnClickListener(v ->{
-//            getActivity().getSupportFragmentManager().beginTransaction()
-////                    .remove(FirstFragment.this)
-//                    .replace(R.id.nav_host_fragment, new SecondFragment(), null)
-//                    .commit();
-            NavHostFragment.findNavController(FirstFragment.this)
-                    .navigate(R.id.action_FirstFragment_to_SecondFragment);
-        });
-
-
         view.findViewById(R.id.path_anim).setOnClickListener((v -> {
-            RectView view1 = (RectView)(view.findViewById(R.id.rect_view));
-            float[] leftTop = new float[]{0,0};
-            float[] rightDown = new float[] {300, 300};
+            RectView view1 = (RectView) (view.findViewById(R.id.rect_view));
+            float[] leftTop = new float[]{0, 0};
+            float[] rightDown = new float[]{300, 300};
             view1.start(leftTop, rightDown);
         }));
-
-
-        view.findViewById(R.id.other_anim).setOnClickListener(v -> {
-            NavHostFragment.findNavController(FirstFragment.this)
-                    .navigate(R.id.action_FirstFragment_to_OtherAnim);
-        });
-
-
 
 
     }

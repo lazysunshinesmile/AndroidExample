@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 public class OtherAnimFragment extends Fragment {
 
@@ -81,9 +82,9 @@ public class OtherAnimFragment extends Fragment {
         int height = heightTV.getHeight();
         heightBtn.setOnClickListener(v -> {
             AnimatorSet animatorSet = new AnimatorSet();
-            if(heightBtn.getText().equals("放大")) {
+            if (heightBtn.getText().equals("放大")) {
                 heightTV.setVisibility(View.VISIBLE);
-                ObjectAnimator alpha = ObjectAnimator.ofFloat(heightTV, View.ALPHA,  0,1);
+                ObjectAnimator alpha = ObjectAnimator.ofFloat(heightTV, View.ALPHA, 0, 1);
                 ObjectAnimator objectAnimator = ObjectAnimator.ofInt(heightTV, "height", height, 600);
                 objectAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
@@ -112,7 +113,7 @@ public class OtherAnimFragment extends Fragment {
                 animatorSet.start();
             } else {
                 ObjectAnimator objectAnimator = ObjectAnimator.ofInt(heightTV, "height", 600, height);
-                ObjectAnimator alpha = ObjectAnimator.ofFloat(heightTV, View.ALPHA,  1,0);
+                ObjectAnimator alpha = ObjectAnimator.ofFloat(heightTV, View.ALPHA, 1, 0);
                 objectAnimator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -159,6 +160,10 @@ public class OtherAnimFragment extends Fragment {
         EditAreaFrame editAreaFrame = view.findViewById(R.id.edit_area_frame);
         editAreaFrame.setGapWidth(144);
 
+       /* view.findViewById(R.id.next_fragment).setOnClickListener(v -> {
+            NavHostFragment.findNavController(OtherAnimFragment.this)
+                    .navigate(R.id.action_Other_to_SecondFragment);
+        });*/
 
     }
 }

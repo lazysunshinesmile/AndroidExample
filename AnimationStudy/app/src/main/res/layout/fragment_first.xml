@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,19 +10,18 @@
         android:id="@+id/value_anim_ofint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:text="value_anim_of_int"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/growth_rect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_todo_edit"
         app:layout_constraintLeft_toRightOf="@id/value_anim_ofint"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/value_anim_ofint"
-        android:background="@drawable/shape_todo_edit"
-        />
+        app:layout_constraintTop_toTopOf="@id/value_anim_ofint" />
 
 
     <Button
@@ -32,80 +30,55 @@
         android:layout_height="wrap_content"
         android:text="value_anim_of_float"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/value_anim_ofint"
-        />
+        app:layout_constraintTop_toBottomOf="@id/value_anim_ofint" />
+
     <Button
         android:id="@+id/value_anim_of_obj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/value_anim_offloat"
         android:text="value_anim_of_obj"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/value_anim_offloat" />
+
     <Button
         android:id="@+id/obj_anim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/value_anim_of_obj"
         android:text="obj anim"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/value_anim_of_obj" />
+
     <Button
         android:id="@+id/button_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/obj_anim"
         android:text="普通动画"
-        />
-    <Button
-        android:id="@+id/other_anim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/button_first"
-        android:layout_marginLeft="160dp"
-        app:layout_constraintTop_toTopOf="@id/button_first"
-        android:text="其他动画"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/obj_anim" />
 
     <Button
         android:id="@+id/path_anim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_first"
         android:text="path动画"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_first" />
+
     <com.example.animationstudy.RectView
         android:id="@+id/rect_view"
         android:layout_width="400dp"
         android:layout_height="800dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/path_anim"
         android:text="path动画"
-        />
-
-
-
-
-
-    <Button
-        android:id="@+id/interpolator_typeevaluator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="插值器与估值器"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/path_anim" />
+
+
     <ImageView
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/interpolator_typeevaluator"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:src="@drawable/a1"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

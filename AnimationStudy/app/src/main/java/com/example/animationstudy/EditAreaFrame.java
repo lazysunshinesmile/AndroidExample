@@ -52,14 +52,14 @@ public class EditAreaFrame extends TextView {
         super.onDraw(canvas);
         int right = getRight();
         int height = getHeight();
-        canvas.translate(0, mStrokeWidth/2);
+        canvas.translate(0, mStrokeWidth / 2);
         canvas.drawLine(0, 0, mLeftWidth, 0, mFramePaint);
-        canvas.drawLine(mLeftWidth + mGapWidth, 0, right, 0,mFramePaint);
-        canvas.translate(-mStrokeWidth/2, 0);
+        canvas.drawLine(mLeftWidth + mGapWidth, 0, right, 0, mFramePaint);
+        canvas.translate(-mStrokeWidth / 2, 0);
         canvas.drawLine(right, 0, right, height, mFramePaint);
         canvas.translate(0, -mStrokeWidth);
         canvas.drawLine(right, height, 0, height, mFramePaint);
         canvas.translate(mStrokeWidth, 0);
-        canvas.drawLine(0,height, 0,0, mFramePaint);
+        canvas.drawLine(0, height, 0, 0, mFramePaint);
     }
 }

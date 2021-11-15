@@ -5,12 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -29,7 +26,7 @@ public class RectView extends View {
     private Bitmap airplaneBitmap;
     private Context mContext;
 
-    private float[] leftTop = new float[] {0, 0};
+    private float[] leftTop = new float[]{0, 0};
     private float[] rightDown = new float[]{0, 0};
 
     private float lastX;
@@ -54,7 +51,7 @@ public class RectView extends View {
         init();
     }
 
-    private void init(){
+    private void init() {
         mPaint = new Paint();
         mPaint.setColor(Color.BLACK);
         mPaint.setAntiAlias(true);
@@ -74,16 +71,15 @@ public class RectView extends View {
         path2 = new Path();
 
 
-
-
     }
+
     boolean over1 = false;
     boolean over2 = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
-        if(!over1) {
+        if (!over1) {
             path1.lineTo(currentX, 0);
         } else {
             path1.lineTo(rightDown[0], currentY);
@@ -91,7 +87,7 @@ public class RectView extends View {
         path2.lineTo(0, currentY);
         path2.lineTo(currentX, rightDown[1]);
 
-        Log.d("sunxiang", "onDraw: " +"currentX:"+ currentX +"currentY:"+ currentY +"rightDown:"+ Arrays.toString(rightDown));
+        Log.d("sunxiang", "onDraw: " + "currentX:" + currentX + "currentY:" + currentY + "rightDown:" + Arrays.toString(rightDown));
         lastY = currentY;
         lastX = currentX;
         canvas.drawPath(path1, mPaint);
@@ -99,7 +95,7 @@ public class RectView extends View {
     }
 
     public void start(float[] leftTop, float[] rightDown) {
-        Log.d("sunxiang", "onDraw: leftTop:" + Arrays.toString(leftTop)+ ", right:" + Arrays.toString(rightDown ));
+        Log.d("sunxiang", "onDraw: leftTop:" + Arrays.toString(leftTop) + ", right:" + Arrays.toString(rightDown));
         path1.reset();
         path2.reset();
         this.leftTop = leftTop;
@@ -115,21 +111,21 @@ public class RectView extends View {
         animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-               currentX = (float) animation.getAnimatedValue();
-               if(currentX == rightDown[0]) {
-                   over1 = true;
-               }
-               invalidate();
+                currentX = (float) animation.getAnimatedValue();
+                if (currentX == rightDown[0]) {
+                    over1 = true;
+                }
+                invalidate();
             }
         });
         animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-               currentY = (float) animation.getAnimatedValue();
-                if(currentY == rightDown[1]) {
+                currentY = (float) animation.getAnimatedValue();
+                if (currentY == rightDown[1]) {
                     over2 = true;
                 }
-               invalidate();
+                invalidate();
             }
         });
         animator1.setDuration(20000);
