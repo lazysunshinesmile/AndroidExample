@@ -49,6 +49,7 @@ public class FirstFragment extends Fragment {
     boolean start = false;
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "sunxiang 111122");
         Button btn = view.findViewById(R.id.button_first);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +117,12 @@ public class FirstFragment extends Fragment {
                     Log.d(TAG, "onAnimationUpdate: animated fraction:" + animation.getAnimatedFraction());
                     valueAnimOfInt.setHeight(oh + x);
                     valueAnimOfInt.invalidate();
-                    valueAnimator.setDuration(1000);
+//                    valueAnimator.setDuration(1000);
+                    //这种动画，textView不能设置高度，需要wrapcontent
+                    TextView textView = view.findViewById(R.id.growth_rect);
+                    textView.setHeight(x * 10);
+                    textView.invalidate();
+
                 }
             });
             valueAnimator.setDuration(1000);

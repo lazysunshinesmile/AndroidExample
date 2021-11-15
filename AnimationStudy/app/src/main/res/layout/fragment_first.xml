@@ -15,6 +15,17 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="value_anim_of_int"
         />
+    <TextView
+        android:id="@+id/growth_rect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/value_anim_ofint"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/value_anim_ofint"
+        android:background="@drawable/shape_todo_edit"
+        />
+
+
     <Button
         android:id="@+id/value_anim_offloat"
         android:layout_width="wrap_content"

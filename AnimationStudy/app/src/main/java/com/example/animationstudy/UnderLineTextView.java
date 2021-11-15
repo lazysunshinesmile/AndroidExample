@@ -2,18 +2,26 @@ package com.example.animationstudy;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.provider.DocumentsContract;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 public class UnderLineTextView extends androidx.appcompat.widget.AppCompatTextView {
 
@@ -45,6 +53,8 @@ public class UnderLineTextView extends androidx.appcompat.widget.AppCompatTextVi
     @Override
     protected void onDraw(Canvas canvas) {
 //得到TextView显示有多少行
+        super.onDraw(canvas);
+
         int count = getLineCount();
 
 //得到TextView的布局
@@ -78,7 +88,33 @@ public class UnderLineTextView extends androidx.appcompat.widget.AppCompatTextVi
 
 
         }
-        super.onDraw(canvas);
+//        Bitmap bitmap = getBitmapFromDrawable(getContext(), R.drawable.vd_todo_red_full_stop_en);
+//        canvas.drawBitmap(bitmap, getLeft(), getTop(), mPaint);
+        int baseline = getLineBounds(count-1, mRect);
+        Drawable drawable = getContext().getDrawable(R.drawable.vd_todo_red_full_stop_en);
+        int left = (int) layout.getLineRight(count - 1);
+        int top = layout.getLineBottom(count - 1) - drawable.getIntrinsicHeight();
+        int right = (int) (layout.getLineRight(count - 1) + drawable.getIntrinsicWidth());
+        int bottom = layout.getLineBottom(count - 1);
+        drawable.setBounds(left, top, right, bottom);
+        drawable.draw(canvas);
+    }
+
+    public static Bitmap getBitmapFromDrawable(Context context, @DrawableRes int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof VectorDrawable || drawable instanceof VectorDrawableCompat) {
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+
+            return bitmap;
+        } else {
+            throw new IllegalArgumentException("unsupported drawable type");
+        }
     }
 
     public void startUnderlineAnimation() {

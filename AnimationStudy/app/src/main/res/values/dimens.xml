@@ -1,3 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="frame_line_width">3dp</dimen>
+    <dimen name="frame_left_width">10dp</dimen>
 </resources>
