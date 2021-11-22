@@ -27,6 +27,10 @@ public class ContentsFragment extends Fragment {
         root.findViewById(R.id.other_fragment).setOnClickListener(v -> {
             NavHostFragment.findNavController(ContentsFragment.this).navigate(R.id.action_to_OtherAnimFragment);
         });
+        root.findViewById(R.id.spring_fragment).setOnClickListener(v -> {
+            NavHostFragment.findNavController(ContentsFragment.this).navigate(R.id.action_to_SpringFragment);
+        });
+
 
 
 

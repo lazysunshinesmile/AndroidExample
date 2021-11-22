@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_to_OtherAnimFragment"
             app:destination="@id/OtherAnimFragment" />
+        <action
+            android:id="@+id/action_to_SpringFragment"
+            app:destination="@id/spring_animation" />
     </fragment>
 
     <fragment
@@ -47,6 +50,10 @@
         android:name="com.example.animationstudy.OtherAnimFragment"
         android:label="@string/other_anim_label"
         tools:layout="@layout/other_anim">
-
     </fragment>
+    <fragment
+        android:id="@+id/spring_animation"
+        android:name="com.example.animationstudy.SpringAnimationFragment"
+        android:label="弹簧动效"
+        tools:layout="@layout/spring_animation"/>
 </navigation>
