@@ -1,8 +1,8 @@
 package com.sun.rxjava2examples.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     private Unbinder unbinder;
+    protected View mRoot;
 
     /**
      * 获取布局ID
@@ -32,7 +33,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (getContentViewLayoutID() != 0) {
-            return inflater.inflate(getContentViewLayoutID(), container, false);
+            mRoot = inflater.inflate(getContentViewLayoutID(), container, false);
+            return mRoot;
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);
         }

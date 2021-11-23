@@ -2,11 +2,11 @@ package com.sun.rxjava2examples.module;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -24,17 +24,11 @@ import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity {
 
-    @BindView(R.id.home_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.home_tabLayout)
     TabLayout mTabLayout;
-    @BindView(R.id.home_appbar)
     AppBarLayout mAppbar;
-    @BindView(R.id.home_viewPager)
     ViewPager mViewPager;
-    @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.fab)
     FloatingActionButton mFab;
 
 
@@ -46,6 +40,13 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 //        StatusBarUtil.setTranslucent(this);
+        mToolbar = findViewById(R.id.home_toolbar);
+        mTabLayout = findViewById(R.id.home_tabLayout);
+        mAppbar = findViewById(R.id.home_appbar);
+        mViewPager = findViewById(R.id.home_viewPager);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
+        mFab = findViewById(R.id.fab);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4 以上版本
             // 设置 Toolbar 高度为 80dp，适配状态栏
             ViewGroup.LayoutParams layoutParams = mToolbarTitle.getLayoutParams();
@@ -66,6 +67,7 @@ public class HomeActivity extends BaseActivity {
 
         mViewPager.setAdapter(pagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+
     }
 
     /** 初始化 Toolbar */
