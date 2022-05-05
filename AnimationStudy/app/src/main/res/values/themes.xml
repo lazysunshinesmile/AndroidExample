@@ -22,12 +22,14 @@
     <style name="Theme.AnimationStudy.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AnimationStudy.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="Theme.AnimationStudy.TaskButton">
         <item name="android:button">@null</item>
         <item name="android:drawableStart">@drawable/checkbox_task</item>
         <item name="android:padding">8dp</item>
         <item name="android:theme">@style/Theme.AnimationStudy.CheckBoxRippleBlue</item>
     </style>
+
     <style name="Theme.AnimationStudy.MyCheckbox">
         <item name="android:button">@null</item>
         <item name="android:drawableStart">@drawable/my_checkbox</item>

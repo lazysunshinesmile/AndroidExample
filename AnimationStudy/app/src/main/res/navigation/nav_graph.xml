@@ -31,29 +31,45 @@
         android:id="@+id/FirstFragment"
         android:name="com.example.animationstudy.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-    </fragment>
+        tools:layout="@layout/fragment_first"></fragment>
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.animationstudy.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-    </fragment>
+        tools:layout="@layout/fragment_second"></fragment>
     <fragment
         android:id="@+id/ThirdFragment"
         android:name="com.example.animationstudy.ThirdFragment"
         android:label="@string/third_fragment_label"
-        tools:layout="@layout/fragment_third">
-    </fragment>
+        tools:layout="@layout/fragment_third"></fragment>
     <fragment
         android:id="@+id/OtherAnimFragment"
         android:name="com.example.animationstudy.OtherAnimFragment"
         android:label="@string/other_anim_label"
-        tools:layout="@layout/other_anim">
-    </fragment>
+        tools:layout="@layout/other_anim"></fragment>
     <fragment
         android:id="@+id/spring_animation"
         android:name="com.example.animationstudy.SpringAnimationFragment"
         android:label="弹簧动效"
-        tools:layout="@layout/spring_animation"/>
+        tools:layout="@layout/spring_animation" />
+    <fragment
+        android:id="@+id/First2Fragment"
+        android:name="com.example.animationstudy.First2Fragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first2">
+
+        <action
+            android:id="@+id/action_First2Fragment_to_Second2Fragment"
+            app:destination="@id/Second2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/Second2Fragment"
+        android:name="com.example.animationstudy.Second2Fragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second2">
+
+        <action
+            android:id="@+id/action_Second2Fragment_to_First2Fragment"
+            app:destination="@id/First2Fragment" />
+    </fragment>
 </navigation>

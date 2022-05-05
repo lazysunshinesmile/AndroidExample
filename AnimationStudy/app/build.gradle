@@ -12,7 +12,8 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        //All flavors must now belong to a named flavor dimension.   出现在这个问题，加上下面这句
+        flavorDimensions "versionCode"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,6 +26,35 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    productFlavors {
+        animation_study {
+            buildConfigField "int", "DeviceType", "0"
+            minSdkVersion 21
+            versionCode 1
+            targetSdkVersion 30
+        }
+        card_view {
+            buildConfigField "int", "DeviceType", "0"
+            minSdkVersion 21
+            versionCode 1
+            targetSdkVersion 30
+        }
+    }
+
+    sourceSets {
+        animation_study {
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+
+        card_view {
+            java.srcDirs = ['src/card_view/java']
+            res.srcDirs = ['src/card_view/res']
+            manifest.srcFile 'src/card_view/AndroidManifest.xml'
+        }
     }
 }
 
