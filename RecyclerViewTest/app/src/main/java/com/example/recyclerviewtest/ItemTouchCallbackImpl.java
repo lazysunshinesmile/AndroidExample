@@ -1,6 +1,8 @@
 package com.example.recyclerviewtest;
 
 import android.graphics.Canvas;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Adapter;
 import android.widget.Toast;
@@ -11,14 +13,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.logging.LogRecord;
+
 public class ItemTouchCallbackImpl extends ItemTouchHelper.Callback {
 
     private final String TAG = ItemTouchCallbackImpl.class.getSimpleName();
     private RecyclerAdapter mAdapter;
     private SimulatedWaterAnim mSimulatedWaterAnim;
+    private RecyclerView mRecyclerView;
 
-    public ItemTouchCallbackImpl(RecyclerAdapter adapter) {
+    public ItemTouchCallbackImpl(RecyclerAdapter adapter, RecyclerView mRecyclerView) {
         this.mAdapter = adapter;
+        this.mRecyclerView = mRecyclerView;
     }
 
     @Override
@@ -94,6 +100,13 @@ public class ItemTouchCallbackImpl extends ItemTouchHelper.Callback {
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
         //进入我们的动画类
         mSimulatedWaterAnim.onSelected(viewHolder, actionState);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "run: sunxiang error");
+                mRecyclerView.requestDisallowInterceptTouchEvent(true);
+            }
+        }, 300);
     }
 
     /**

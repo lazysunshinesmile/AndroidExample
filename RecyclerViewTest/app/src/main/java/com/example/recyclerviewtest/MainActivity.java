@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL/**分布的方向**/));
         mRecyclerView.setAdapter(mAdapter);
-        mItemTouchCallback = new ItemTouchCallbackImpl(mAdapter);
+        mItemTouchCallback = new ItemTouchCallbackImpl(mAdapter, mRecyclerView);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(mItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
         adapterWrapper.setItemTouchHelper(itemTouchHelper);
