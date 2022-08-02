@@ -33,4 +33,9 @@ public class ConcatAdapter1 extends RecyclerView.Adapter<ConcatAdapter1.CreatedV
             tv = itemView.findViewById(R.id.textview);
         }
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return 10;
+    }
 }

@@ -13,3 +13,31 @@ KM规则文档：http://km.vivo.xyz/x/ofoWIw","WARNING","G:\my_andrtoid_workspac
 风险描述：AndroidManifest.xml 中 allowBackup 属性表示是否可以备份和恢复应用程序数据，其默认值为 true。
 修复建议：设置android:allowBackup=""false""。
 KM规则文档：http://km.vivo.xyz/x/ofoWIw"
+"SecDev_Quality_03_2","SecDev_Quality_03_2.【必须项】禁止使用Android原生Log进行日志打印","SecDev_Quality_03_2.【必须项】禁止使用Android原生Log进行日志打印
+风险描述：使用非VLog方式进行日志打印
+修复建议：所有Log都需要使用VLog打印，框架对模块通过VLog打印的Log日志有特殊管控
+KM规则文档：http://km.vivo.xyz/x/IJQrIw","ERROR","G:\my_andrtoid_workspace\AndroidExample\RecyclerViewTest\app\src\main\java\com\example\recyclerviewtest\ItemTouchCallbackImpl.java","67","67","0064 
+0065     @Override
+0066     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+****         Log.d(TAG, ""onSwiped: direction:""+ direction);
+0068 //        if(direction == ItemTouchHelper.RIGHT) {
+0069             mAdapter.remove(viewHolder.getAbsoluteAdapterPosition());
+0070         /*} else {
+","SecDev_Quality_03_2.【必须项】禁止使用Android原生Log进行日志打印
+风险描述：使用非VLog方式进行日志打印
+修复建议：所有Log都需要使用VLog打印，框架对模块通过VLog打印的Log日志有特殊管控
+KM规则文档：http://km.vivo.xyz/x/IJQrIw"
+"SecDev_Quality_03_2","SecDev_Quality_03_2.【必须项】禁止使用Android原生Log进行日志打印","SecDev_Quality_03_2.【必须项】禁止使用Android原生Log进行日志打印
+风险描述：使用非VLog方式进行日志打印
+修复建议：所有Log都需要使用VLog打印，框架对模块通过VLog打印的Log日志有特殊管控
+KM规则文档：http://km.vivo.xyz/x/IJQrIw","ERROR","G:\my_andrtoid_workspace\AndroidExample\RecyclerViewTest\app\src\main\java\com\example\recyclerviewtest\ItemTouchCallbackImpl.java","106","106","0103         new Handler().postDelayed(new Runnable() {
+0104             @Override
+0105             public void run() {
+****                 Log.d(TAG, ""run: sunxiang error"");
+0107                 mRecyclerView.requestDisallowInterceptTouchEvent(true);
+0108             }
+0109         }, 300);
+","SecDev_Quality_03_2.【必须项】禁止使用Android原生Log进行日志打印
+风险描述：使用非VLog方式进行日志打印
+修复建议：所有Log都需要使用VLog打印，框架对模块通过VLog打印的Log日志有特殊管控
+KM规则文档：http://km.vivo.xyz/x/IJQrIw"
