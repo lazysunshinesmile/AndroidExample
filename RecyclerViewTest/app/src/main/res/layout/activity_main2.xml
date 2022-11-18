@@ -8,6 +8,55 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contact_recycler_view"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image1"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="todo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image2"/>
+    <Button
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="note"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todo"/>
+
+    <Button
+        android:id="@+id/document"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="document"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/note"/>
+    <Button
+        android:id="@+id/my"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="my"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/document"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
